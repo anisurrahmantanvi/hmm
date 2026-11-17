@@ -34,6 +34,7 @@ export default function DisplayPrefsPage() {
               ))}
             </div>
           </div>
+          <Row title="Minimal design" hint="Flat, clean look without frosted-glass boxes." checked={p.minimal} onChange={(v) => set({ minimal: v })} />
           <Row title="Reduce motion" hint="Turns off animations and transitions." checked={p.reducedMotion} onChange={(v) => set({ reducedMotion: v })} />
           <Row title="High contrast" hint="Stronger text and borders for easier reading." checked={p.highContrast} onChange={(v) => set({ highContrast: v })} />
         </GlassPanel>

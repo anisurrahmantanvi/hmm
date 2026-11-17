@@ -133,3 +133,34 @@ html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after 
 }
 html.high-contrast { --text-muted: var(--text); --text-faint: var(--text); }
 html.high-contrast .glass, html.high-contrast .card { border-color: currentColor; }
+
+/* ---------- Minimal design (default; Settings → Accessibility & Media → Minimal design) ----------
+   Flat surfaces: no frosted glass, no orbs, no shadows. Sections are separated by thin lines instead of boxes. */
+html.minimal {
+  --bg: #ffffff; --bg-orb-1: transparent; --bg-orb-2: transparent; --bg-orb-3: transparent;
+  --glass: #ffffff; --glass-strong: #ffffff; --glass-solid: #ffffff;
+  --glass-border: transparent; --glass-highlight: transparent; --glass-edge: rgba(20, 30, 60, 0.1);
+  --field: #f3f4f7; --hover: rgba(20, 30, 60, 0.05);
+  --shadow-sm: none; --blur: 0px;
+  --r-md: 12px; --r-lg: 14px; --r-xl: 16px;
+}
+html.minimal[data-theme='dark'] {
+  --bg: #0c0c0f; --glass: #0c0c0f; --glass-strong: #14141a; --glass-solid: #0c0c0f;
+  --glass-edge: rgba(255, 255, 255, 0.1); --field: rgba(255, 255, 255, 0.06); --hover: rgba(255, 255, 255, 0.07);
+}
+@media (prefers-color-scheme: dark) {
+  html.minimal:not([data-theme='light']):not([data-theme='dark']) {
+    --bg: #0c0c0f; --glass: #0c0c0f; --glass-strong: #14141a; --glass-solid: #0c0c0f;
+    --glass-edge: rgba(255, 255, 255, 0.1); --field: rgba(255, 255, 255, 0.06); --hover: rgba(255, 255, 255, 0.07);
+  }
+}
+html.minimal .glass { -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+html.minimal .glass::after { display: none; }
+html.minimal .card, html.minimal .post, html.minimal .profile-head, html.minimal .settings-list, html.minimal .menu-tile, html.minimal .glass.col {
+  border: 0; border-bottom: 1px solid var(--glass-edge); border-radius: 0;
+}
+html.minimal .menu-tile { border: 1px solid var(--glass-edge); border-radius: 12px; }
+html.minimal .dialog, html.minimal .toast, html.minimal .popover { box-shadow: var(--shadow-md); border: 1px solid var(--glass-edge); }
+html.minimal .dialog { background: var(--glass-strong); }
+html.minimal .btn--glass { background: var(--field); border-color: transparent; box-shadow: none; }
+html.minimal .comment__likes { box-shadow: none; border: 1px solid var(--glass-edge); }

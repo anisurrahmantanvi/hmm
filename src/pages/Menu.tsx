@@ -7,6 +7,8 @@ import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { GlassPanel } from '@/components/ui/GlassPanel'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { useT } from '@/lib/i18n'
+import { useActingPage } from '@/hooks/useActingPage'
+import { setActingAs } from '@/lib/actingAs'
 import { sectionSlug } from '@/pages/settings/settingsMenu'
 
 function Tile({ to, icon, label, color }: { to: string; icon: ReactNode; label: string; color: string }) {
@@ -45,6 +47,7 @@ export default function MenuPage() {
   const { signOut } = useAuth()
   const navigate = useNavigate()
   const [confirmLogout, setConfirmLogout] = useState(false)
+  const acting = useActingPage()
 
   const logOut = async () => {
     await signOut()
@@ -56,13 +59,14 @@ export default function MenuPage() {
       <PageHeader title={tx('Menu')} back />
       <div className="stack">
         <GlassPanel as="section" aria-label="Your profile">
-          <Link to={`/u/${me.username}`} className="settings-user">
-            <Avatar src={me.avatar_url} name={me.display_name ?? me.username} size="lg" />
+          <Link to={acting ? `/page/${acting.slug}` : `/u/${me.username}`} className="settings-user">
+            <Avatar src={acting ? acting.avatar_url : me.avatar_url} name={acting ? acting.name : me.display_name ?? me.username} size="lg" />
             <span className="grow" style={{ minWidth: 0 }}>
-              <strong className="truncate" style={{ display: 'block', fontSize: 18 }}>{me.display_name || me.username}</strong>
-              <span className="muted truncate" style={{ display: 'block' }}>Your iConnecto profile</span>
+              <strong className="truncate" style={{ display: 'block', fontSize: 18 }}>{acting ? acting.name : me.display_name || me.username}</strong>
+              <span className="muted truncate" style={{ display: 'block' }}>{acting ? 'Page mode' : 'Your iConnecto profile'}</span>
             </span>
           </Link>
+          {acting ? <button type="button" className="btn btn--block" style={{ marginTop: 12 }} onClick={() => setActingAs('')}>Switch to personal profile</button> : null}
         </GlassPanel>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>

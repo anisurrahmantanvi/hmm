@@ -1,5 +1,7 @@
 import { Suspense, useEffect } from 'react'
 import { WellbeingWatcher } from '@/components/layout/WellbeingWatcher'
+import { ActingRedirect } from '@/components/pages/ActingRedirect'
+import { useActingPage } from '@/hooks/useActingPage'
 import { ActingBanner } from '@/components/pages/ActingBanner'
 import { unlockAudioOnFirstTouch } from '@/lib/ringtone'
 import { NavLink, Outlet, useLocation, useMatch } from 'react-router-dom'
@@ -91,6 +93,9 @@ export function AppShell() {
   const { pathname } = useLocation()
   const bleed = !inChat // every normal screen runs edge to edge; chats and calls have their own full-screen layout
   const username = profile?.username ?? ''
+  const actingPage = useActingPage()
+  const profilePath = actingPage ? `/page/${actingPage.slug}` : `/u/${username}`
+  const notifPath = actingPage ? `/page/${actingPage.slug}/notifications` : '/notifications'
 
   return (
     <CallProvider>
@@ -103,10 +108,10 @@ export function AppShell() {
         <NavItem to="/discover" icon={Compass} label={t('nav.discover')} />
         <NavItem to="/reels" icon={Clapperboard} label="Reels" />
         <NavItem to="/messages" icon={MessageCircle} label={t('nav.messages')} badge={badges.unreadMessages} />
-        <NavItem to="/notifications" icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} />
+        <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} />
         <NavItem to="/communities" icon={Users} label={t('nav.communities')} />
         <NavItem to="/saved" icon={Bookmark} label={t('nav.saved')} />
-        <NavItem to={`/u/${username}`} icon={User} label={t('nav.profile')} />
+        <NavItem to={profilePath} icon={User} label={t('nav.profile')} />
         <NavItem to="/settings" icon={Settings} label={t('nav.settings')} />
         <span className="spacer" />
         <NavLink to="/create" className="btn btn--primary btn--block"><Plus size={18} aria-hidden /> {t('nav.create')}</NavLink>
@@ -114,6 +119,7 @@ export function AppShell() {
 
       <main className={`shell__main ${bleed ? 'shell__main--bleed' : ''}`} id="main" tabIndex={-1}>
         <ActingBanner />
+        <ActingRedirect />
         <WellbeingWatcher />
         {/* Lazy pages suspend here, so the navigation stays on screen while a screen's code loads. */}
         <Suspense fallback={<Spinner />}>
@@ -126,8 +132,8 @@ export function AppShell() {
           <NavItem to="/" icon={Home} label={t('nav.home')} end iconOnly />
           <NavItem to="/reels" icon={Clapperboard} label="Reels" iconOnly />
           <NavItem to="/discover" icon={Compass} label={t('nav.discover')} iconOnly />
-          <NavItem to="/notifications" icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} iconOnly />
-          <NavItem to={`/u/${username}`} icon={User} label={t('nav.profile')} iconOnly />
+          <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} iconOnly />
+          <NavItem to={profilePath} icon={User} label={t('nav.profile')} iconOnly />
         </nav>
       ) : null}
 

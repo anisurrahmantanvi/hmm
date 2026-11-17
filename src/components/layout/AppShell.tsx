@@ -95,6 +95,8 @@ export function AppShell() {
   const username = profile?.username ?? ''
   const actingPage = useActingPage()
   const profilePath = actingPage ? `/page/${actingPage.slug}` : `/u/${username}`
+  const msgPath = actingPage ? `/page/${actingPage.slug}/inbox` : '/messages'
+  const settingsPath = actingPage ? `/page/${actingPage.slug}/settings` : '/settings'
   const notifPath = actingPage ? `/page/${actingPage.slug}/notifications` : '/notifications'
 
   return (
@@ -107,12 +109,12 @@ export function AppShell() {
         <NavItem to="/" icon={Home} label={t('nav.home')} end />
         <NavItem to="/discover" icon={Compass} label={t('nav.discover')} />
         <NavItem to="/reels" icon={Clapperboard} label="Reels" />
-        <NavItem to="/messages" icon={MessageCircle} label={t('nav.messages')} badge={badges.unreadMessages} />
+        <NavItem to={msgPath} icon={MessageCircle} label={t('nav.messages')} badge={badges.unreadMessages} />
         <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} />
         <NavItem to="/communities" icon={Users} label={t('nav.communities')} />
         <NavItem to="/saved" icon={Bookmark} label={t('nav.saved')} />
         <NavItem to={profilePath} icon={User} label={t('nav.profile')} />
-        <NavItem to="/settings" icon={Settings} label={t('nav.settings')} />
+        <NavItem to={settingsPath} icon={Settings} label={t('nav.settings')} />
         <span className="spacer" />
         <NavLink to="/create" className="btn btn--primary btn--block"><Plus size={18} aria-hidden /> {t('nav.create')}</NavLink>
       </aside>

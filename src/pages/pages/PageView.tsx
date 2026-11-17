@@ -99,12 +99,15 @@ export default function PageViewPage() {
                   ? <Button variant="glass" onClick={() => setActingAs('')}>Switch to personal profile</Button>
                   : <Button variant="glass" onClick={() => setActingAs(page.slug)}>Switch to this Page</Button>}
                 <Button variant="primary" icon={<PenSquare size={16} />} onClick={() => navigate(`/create?page=${page.slug}`)}>Post</Button>
+                <Link to={`/page/${page.slug}/inbox`} className="btn btn--glass">Inbox</Link>
                 <Link to={`/page/${page.slug}/notifications`} className="btn btn--glass">Notifications</Link>
-                {admin ? <Link to={`/page/${page.slug}/edit`} className="btn btn--glass"><Pencil size={16} aria-hidden /> Manage</Link> : null}
+                <Link to={`/page/${page.slug}/settings`} className="btn btn--glass"><Pencil size={16} aria-hidden /> Settings</Link>
               </>
             ) : null}
+            {!canPost ? <Link to={`/page/${page.slug}/chat`} className="btn btn--glass">Message</Link> : null}
             <Button variant={following ? 'glass' : 'primary'} loading={busy} onClick={() => void toggle()}>{following ? 'Following' : 'Follow'}</Button>
             <Button variant="glass" icon={<Copy size={16} />} onClick={() => void copyLink()}>Copy link</Button>
+            <Link to={`/page/${page.slug}/policy`} className="btn btn--glass">Policy</Link>
           </div>
         </section>
         <PostFeed

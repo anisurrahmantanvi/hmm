@@ -65,6 +65,10 @@ const SnoozedPage = lazy(() => import('@/pages/settings/FeedLists').then((m) => 
 const SearchHistoryPage = lazy(() => import('@/pages/settings/SearchHistoryPage'))
 const FavoritesPage = lazy(() => import('@/pages/settings/FavoritesPage'))
 const ProfileCustomizationPage = lazy(() => import('@/pages/settings/ProfileCustomization'))
+const PageChatPage = lazy(() => import('@/pages/pages/PageChat'))
+const PageInboxPage = lazy(() => import('@/pages/pages/PageInbox'))
+const PageSettingsPage = lazy(() => import('@/pages/pages/PageSettings'))
+const PagePolicyPage = lazy(() => import('@/pages/pages/PagePolicy'))
 const DisplayPrefsPage = lazy(() => import('@/pages/settings/DisplayPrefsPage'))
 const MarketHomePage = lazy(() => import('@/pages/market/MarketHome'))
 const TwoFactorPage = lazy(() => import('@/pages/settings/TwoFactor'))
@@ -148,6 +152,11 @@ export function App() {
                 <Route path="/pages" element={<PagesHomePage />} />
                 <Route path="/pages/new" element={<PageFormPage mode="create" />} />
                 <Route path="/page/:slug" element={<PageViewPage />} />
+                <Route path="/page/:slug/chat" element={<PageChatPage />} />
+                <Route path="/page/:slug/inbox" element={<PageInboxPage />} />
+                <Route path="/page/:slug/inbox/:threadId" element={<PageChatPage />} />
+                <Route path="/page/:slug/settings" element={<PageSettingsPage />} />
+                <Route path="/page/:slug/policy" element={<PagePolicyPage />} />
                 <Route path="/page/:slug/notifications" element={<PageNotificationsPage />} />
                 <Route path="/page/:slug/edit" element={<PageFormPage mode="edit" />} />
                 <Route path="/settings/notification-prefs" element={<NotificationPrefsPage />} />

@@ -169,7 +169,7 @@ html.minimal .comment__likes { box-shadow: none; border: 1px solid var(--glass-e
    iConnecto "Ink & Arc" identity: warm paper, ink-black text, vermilion accent.
    One-thumb navigation (Thumb Arc), full-bleed posts separated by hairlines. No sidebar, no tab bar, no blue/purple glass.
    ====================================================================== */
-:root {
+:root, html.minimal {
   --bg: #f5f1ea; --glass: #f5f1ea; --glass-strong: #fbf8f3; --glass-solid: #f5f1ea;
   --bg-orb-1: transparent; --bg-orb-2: transparent; --bg-orb-3: transparent;
   --text: #17130f; --text-muted: #5f574d; --text-faint: #8c8377;
@@ -177,20 +177,19 @@ html.minimal .comment__likes { box-shadow: none; border: 1px solid var(--glass-e
   --glass-edge: rgba(23, 19, 15, 0.12); --field: #ece6db; --hover: rgba(23, 19, 15, 0.06);
   --nav-h: 0px; --col-w: 680px;
 }
-:root[data-theme='dark'] {
+:root[data-theme='dark'], html.minimal[data-theme='dark'] {
   --bg: #0f0d0b; --glass: #0f0d0b; --glass-strong: #1a1714; --glass-solid: #0f0d0b;
   --text: #f3ede4; --text-muted: #b3aa9d; --text-faint: #7f766a;
   --glass-edge: rgba(243, 237, 228, 0.14); --field: #1d1a16; --hover: rgba(243, 237, 228, 0.08);
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']):not([data-theme='dark']) {
+  :root:not([data-theme='light']):not([data-theme='dark']), html.minimal:not([data-theme='light']):not([data-theme='dark']) {
     --bg: #0f0d0b; --glass: #0f0d0b; --glass-strong: #1a1714; --glass-solid: #0f0d0b;
     --text: #f3ede4; --text-muted: #b3aa9d; --text-faint: #7f766a;
     --glass-edge: rgba(243, 237, 228, 0.14); --field: #1d1a16; --hover: rgba(243, 237, 228, 0.08);
   }
 }
 body::before { display: none; }
-html.minimal { --bg: var(--bg); }
 .sidebar, .bottom-nav { display: none !important; }
 .shell { display: block !important; }
 .shell__main { padding-bottom: calc(110px + var(--safe-bottom)) !important; }

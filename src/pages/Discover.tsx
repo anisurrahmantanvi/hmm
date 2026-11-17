@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { addSearch, clearSearchHistory, getSearchHistory, removeSearch } from '@/lib/searchHistory'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Plus, Sparkles, Users } from 'lucide-react'
 import type { Page, ProfileLite } from '@/types/db'
@@ -22,6 +23,12 @@ export default function DiscoverPage() {
   const tab: Tab = rawTab === 'posts' || rawTab === 'communities' || rawTab === 'people' ? rawTab : 'all'
   const dq = useDebounce(q, 350)
   const searching = dq.trim().length >= 2
+  const [recent, setRecent] = useState(getSearchHistory)
+  useEffect(() => {
+    if (!searching) return
+    const t = window.setTimeout(() => { addSearch(dq); setRecent(getSearchHistory()) }, 1200)
+    return () => window.clearTimeout(t)
+  }, [dq, searching])
 
   // Keep the URL in step with the (debounced) query so Back returns to the same search. Skip when already equal,
   // which also prevents a navigation loop.
@@ -76,6 +83,22 @@ export default function DiscoverPage() {
           value={q}
           onChange={setQ}
         />
+        {!q && recent.length ? (
+          <div className="col">
+            <div className="row">
+              <strong className="grow">Recent searches</strong>
+              <button type="button" className="link-btn" onClick={() => { clearSearchHistory(); setRecent([]) }}>Clear</button>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {recent.slice(0, 8).map((r) => (
+                <span key={r} className="chip" style={{ display: 'inline-flex', gap: 8, alignItems: 'center' }}>
+                  <button type="button" className="link-btn" style={{ color: 'inherit', fontWeight: 500 }} onClick={() => setQ(r)}>{r}</button>
+                  <button type="button" className="link-btn" style={{ color: 'inherit' }} aria-label={`Remove ${r}`} onClick={() => { removeSearch(r); setRecent(getSearchHistory()) }}>✕</button>
+                </span>
+              ))}
+            </div>
+          </div>
+        ) : null}
         <Tabs
           label="Discover sections"
           value={tab}

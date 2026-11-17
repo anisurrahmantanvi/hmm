@@ -62,6 +62,8 @@ const HiddenWordsPage = lazy(() => import('@/pages/settings/HiddenWordsPage'))
 const WellbeingPage = lazy(() => import('@/pages/settings/Wellbeing'))
 const HiddenPostsPage = lazy(() => import('@/pages/settings/FeedLists').then((m) => ({ default: m.HiddenPostsPage })))
 const SnoozedPage = lazy(() => import('@/pages/settings/FeedLists').then((m) => ({ default: m.SnoozedPage })))
+const SearchHistoryPage = lazy(() => import('@/pages/settings/SearchHistoryPage'))
+const FavoritesPage = lazy(() => import('@/pages/settings/FavoritesPage'))
 const DisplayPrefsPage = lazy(() => import('@/pages/settings/DisplayPrefsPage'))
 const MarketHomePage = lazy(() => import('@/pages/market/MarketHome'))
 const TwoFactorPage = lazy(() => import('@/pages/settings/TwoFactor'))
@@ -157,6 +159,8 @@ export function App() {
                 <Route path="/settings/wellbeing" element={<WellbeingPage />} />
                 <Route path="/settings/hidden-posts" element={<HiddenPostsPage />} />
                 <Route path="/settings/snoozed" element={<SnoozedPage />} />
+                <Route path="/settings/search-history" element={<SearchHistoryPage />} />
+                <Route path="/settings/favorites" element={<FavoritesPage />} />
                 <Route path="/settings/display" element={<DisplayPrefsPage />} />
                 <Route path="/settings/help" element={<HelpCenterPage />} />
                 <Route path="/settings/about" element={<AboutPage />} />

@@ -1,9 +1,10 @@
 import { memo, useCallback, useRef, useState } from 'react'
+import { addFavorite } from '@/services/favorites'
 import { hidePost, snoozeAccount } from '@/services/feedPrefs'
 import { VerifiedBadge } from '@/components/ui/VerifiedBadge'
 import { appUrl } from '@/lib/base'
 import { Link, useNavigate } from 'react-router-dom'
-import { BellOff, Bookmark, Check, EyeOff, Copy, Flag, Globe, Heart, Lock, MessageCircle, Pencil, Share2, Trash2, Users } from 'lucide-react'
+import { BellOff, Bookmark, Check, EyeOff, Star, Copy, Flag, Globe, Heart, Lock, MessageCircle, Pencil, Share2, Trash2, Users } from 'lucide-react'
 import type { PostView, PostVisibility } from '@/types/db'
 import { useMe } from '@/app/AuthProvider'
 import { Avatar } from '@/components/ui/Avatar'
@@ -143,6 +144,12 @@ export const PostCard = memo(function PostCard({ post, onChange, onDeleted, canM
       toast.error(errorMessage(e))
     }
   }
+  const favorite = async () => {
+    try {
+      await addFavorite(post.author_id)
+      toast.show('Added to Favorites. See them with the Favorites chip on Home')
+    } catch (e) { toast.error(errorMessage(e)) }
+  }
   const notInterested = async () => {
     try {
       await hidePost(post.id)
@@ -163,6 +170,7 @@ export const PostCard = memo(function PostCard({ post, onChange, onDeleted, canM
     { label: 'Edit', icon: <Pencil size={18} />, hidden: !mine, onSelect: () => { setDraft(post.content); setEditing(true) } },
     { label: 'Privacy', icon: post.visibility === 'public' ? <Globe size={18} /> : post.visibility === 'followers' ? <Users size={18} /> : <Lock size={18} />, hidden: !canChangePrivacy, onSelect: () => setPrivacyOpen(true) },
     { label: 'Copy link', icon: <Copy size={18} />, onSelect: () => void copyLink() },
+    { label: 'Add to Favorites', icon: <Star size={18} />, hidden: mine || !post.author, onSelect: () => void favorite() },
     { label: 'Not interested', icon: <EyeOff size={18} />, hidden: mine, onSelect: () => void notInterested() },
     { label: `Snooze ${post.author?.display_name || post.author?.username || 'account'} for 30 days`, icon: <BellOff size={18} />, hidden: mine || !post.author, onSelect: () => void snooze() },
     { label: 'Report', icon: <Flag size={18} />, hidden: mine, onSelect: () => navigate(`/report/post/${post.id}`) },

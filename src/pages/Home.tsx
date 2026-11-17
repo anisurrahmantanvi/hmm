@@ -49,6 +49,7 @@ export default function HomePage() {
     setRefreshKey((k) => k + 1)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
+  const [favOnly, setFavOnly] = useState(false)
   const [nudgeHidden, setNudgeHidden] = useState(onboardingDismissed)
 
   const showNudge = !!profile && !profile.avatar_url && !profile.bio && !nudgeHidden
@@ -107,13 +108,17 @@ export default function HomePage() {
           </div>
         ) : null}
 
+        <div className="chip-row" role="group" aria-label="Feed">
+          <button type="button" className="chip" aria-pressed={!favOnly} onClick={() => setFavOnly(false)}>All</button>
+          <button type="button" className="chip" aria-pressed={favOnly} onClick={() => setFavOnly(true)}>Favorites</button>
+        </div>
         <PostFeed
-          source={{ kind: 'explore' }}
+          source={favOnly ? { kind: 'favorites' } : { kind: 'explore' }}
           refreshKey={refreshKey}
           empty={{
             icon: <Sparkles size={28} />,
-            title: 'Nothing here yet',
-            body: 'Be the first to share something.',
+            title: favOnly ? 'No favorites yet' : 'Nothing here yet',
+            body: favOnly ? 'Add accounts from the post menu (Add to Favorites), then their latest posts show here.' : 'Be the first to share something.',
             action: <Link to="/create" className="btn btn--primary">Create a post</Link>,
           }}
         />

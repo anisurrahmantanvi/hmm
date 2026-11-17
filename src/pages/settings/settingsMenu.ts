@@ -49,7 +49,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { title: 'Activity Log', to: '/settings/activity' },
       { title: 'Your Posts', to: '/settings/activity' },
       { title: 'Comments and Reactions', to: '/settings/activity' },
-      { title: 'Search History' },
+      { title: 'Search History', to: '/settings/search-history' },
       { title: 'Recently Deleted' },
     ],
   },
@@ -146,7 +146,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Feed Preferences',
     items: [
-      { title: 'Favorites' },
+      { title: 'Favorites', to: '/settings/favorites' },
       { title: 'Unfollow Accounts' },
       { title: 'Snooze Accounts', to: '/settings/snoozed' },
       { title: 'Hidden Posts', to: '/settings/hidden-posts' },

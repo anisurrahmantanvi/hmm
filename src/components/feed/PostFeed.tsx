@@ -1,4 +1,5 @@
 import { useCallback, type ReactNode } from 'react'
+import { fetchFavoritePosts } from '@/services/favorites'
 import { getFeedFilters } from '@/services/feedPrefs'
 import type { Page, PostView } from '@/types/db'
 import { useMe } from '@/app/AuthProvider'
@@ -25,6 +26,7 @@ export type PostSource =
   | { kind: 'saved' }
   | { kind: 'search'; query: string }
   | { kind: 'discover' }
+  | { kind: 'favorites' }
 
 interface PostFeedProps {
   source: PostSource
@@ -53,6 +55,7 @@ export function PostFeed({ source, empty, refreshKey = 0, canModerate = false, r
           case 'saved': return fetchSavedPosts(me.id, cursor)
           case 'search': return searchPosts(me.id, source.query, cursor)
           case 'discover': return discoverPosts(me.id, cursor)
+          case 'favorites': return fetchFavoritePosts(me.id)
         }
       }
       // Hidden posts and snoozed accounts only apply to the main feeds.

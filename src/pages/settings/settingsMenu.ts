@@ -148,8 +148,8 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     items: [
       { title: 'Favorites' },
       { title: 'Unfollow Accounts' },
-      { title: 'Snooze Accounts' },
-      { title: 'Hidden Posts' },
+      { title: 'Snooze Accounts', to: '/settings/snoozed' },
+      { title: 'Hidden Posts', to: '/settings/hidden-posts' },
       { title: 'Content Recommendations' },
       { title: 'Manage Interests' },
       { title: 'Show Less / Show More Content' },
@@ -268,7 +268,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { title: 'Interest-Based Content' },
       { title: 'Manage Recommendation Topics' },
       { title: 'Reset Recommendations' },
-      { title: 'Not Interested Option' },
+      { title: 'Not Interested Option', to: '/settings/hidden-posts' },
     ],
   },
   {

@@ -1,5 +1,6 @@
 import { useCallback, type ReactNode } from 'react'
-import type { PostView } from '@/types/db'
+import { getFeedFilters } from '@/services/feedPrefs'
+import type { Page, PostView } from '@/types/db'
 import { useMe } from '@/app/AuthProvider'
 import { usePaged, useInfiniteSentinel } from '@/hooks/common'
 import { PostCard } from './PostCard'
@@ -41,17 +42,23 @@ export function PostFeed({ source, empty, refreshKey = 0, canModerate = false, r
   const key = JSON.stringify(source)
 
   const fetchPage = useCallback(
-    (cursor: string | null) => {
-      switch (source.kind) {
-        case 'home': return fetchFeed(me.id, 'following', cursor)
-        case 'explore': return fetchFeed(me.id, 'all', cursor)
-        case 'author': return fetchUserPosts(me.id, source.authorId, cursor)
-        case 'community': return fetchCommunityPosts(me.id, source.communityId, cursor)
-        case 'page': return fetchPagePosts(me.id, source.pageId, cursor)
-        case 'saved': return fetchSavedPosts(me.id, cursor)
-        case 'search': return searchPosts(me.id, source.query, cursor)
-        case 'discover': return discoverPosts(me.id, cursor)
+    async (cursor: string | null) => {
+      const load = (): Promise<Page<PostView>> => {
+        switch (source.kind) {
+          case 'home': return fetchFeed(me.id, 'following', cursor)
+          case 'explore': return fetchFeed(me.id, 'all', cursor)
+          case 'author': return fetchUserPosts(me.id, source.authorId, cursor)
+          case 'community': return fetchCommunityPosts(me.id, source.communityId, cursor)
+          case 'page': return fetchPagePosts(me.id, source.pageId, cursor)
+          case 'saved': return fetchSavedPosts(me.id, cursor)
+          case 'search': return searchPosts(me.id, source.query, cursor)
+          case 'discover': return discoverPosts(me.id, cursor)
+        }
       }
+      // Hidden posts and snoozed accounts only apply to the main feeds.
+      if (source.kind !== 'home' && source.kind !== 'explore' && source.kind !== 'discover') return load()
+      const [f, res] = await Promise.all([getFeedFilters(me.id), load()])
+      return { ...res, items: res.items.filter((p) => !f.hidden.has(p.id) && !f.snoozed.has(p.author_id)) }
     },
     // `key` stands in for `source` so an equal-but-new object does not trigger a reload.
     // eslint-disable-next-line react-hooks/exhaustive-deps

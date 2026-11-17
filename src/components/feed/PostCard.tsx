@@ -1,8 +1,9 @@
 import { memo, useCallback, useRef, useState } from 'react'
+import { hidePost, snoozeAccount } from '@/services/feedPrefs'
 import { VerifiedBadge } from '@/components/ui/VerifiedBadge'
 import { appUrl } from '@/lib/base'
 import { Link, useNavigate } from 'react-router-dom'
-import { Bookmark, Check, Copy, Flag, Globe, Heart, Lock, MessageCircle, Pencil, Share2, Trash2, Users } from 'lucide-react'
+import { BellOff, Bookmark, Check, EyeOff, Copy, Flag, Globe, Heart, Lock, MessageCircle, Pencil, Share2, Trash2, Users } from 'lucide-react'
 import type { PostView, PostVisibility } from '@/types/db'
 import { useMe } from '@/app/AuthProvider'
 import { Avatar } from '@/components/ui/Avatar'
@@ -142,12 +143,28 @@ export const PostCard = memo(function PostCard({ post, onChange, onDeleted, canM
       toast.error(errorMessage(e))
     }
   }
+  const notInterested = async () => {
+    try {
+      await hidePost(post.id)
+      toast.show('Hidden. You can undo it in Settings → Hidden Posts')
+      onDeleted(post.id)
+    } catch (e) { toast.error(errorMessage(e)) }
+  }
+  const snooze = async () => {
+    try {
+      await snoozeAccount(post.author_id, 30)
+      toast.show('Snoozed for 30 days. Manage it in Settings → Snoozed accounts')
+      onDeleted(post.id)
+    } catch (e) { toast.error(errorMessage(e)) }
+  }
   const canChangePrivacy = mine && !post.community
 
   const menu: MenuItem[] = [
     { label: 'Edit', icon: <Pencil size={18} />, hidden: !mine, onSelect: () => { setDraft(post.content); setEditing(true) } },
     { label: 'Privacy', icon: post.visibility === 'public' ? <Globe size={18} /> : post.visibility === 'followers' ? <Users size={18} /> : <Lock size={18} />, hidden: !canChangePrivacy, onSelect: () => setPrivacyOpen(true) },
     { label: 'Copy link', icon: <Copy size={18} />, onSelect: () => void copyLink() },
+    { label: 'Not interested', icon: <EyeOff size={18} />, hidden: mine, onSelect: () => void notInterested() },
+    { label: `Snooze ${post.author?.display_name || post.author?.username || 'account'} for 30 days`, icon: <BellOff size={18} />, hidden: mine || !post.author, onSelect: () => void snooze() },
     { label: 'Report', icon: <Flag size={18} />, hidden: mine, onSelect: () => navigate(`/report/post/${post.id}`) },
     { label: mine ? 'Delete' : 'Remove (moderator)', icon: <Trash2 size={18} />, danger: true, hidden: !mine && !canModerate, onSelect: () => setConfirmDelete(true) },
   ]

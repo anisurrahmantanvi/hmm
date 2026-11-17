@@ -103,6 +103,17 @@ export default function MenuPage() {
           ) : null}
         </GlassPanel>
 
+        {acting ? (
+          <div className="mgrid">
+            <Tile to={`/page/${acting.slug}`} icon={<Flag size={24} />} label="Page profile" hint="View your Page" c1="#5b5bf0" c2="#8b5cf6" />
+            <Tile to={`/page/${acting.slug}/inbox`} icon={<MessageCircle size={24} />} label="Inbox" hint="Messages to your Page" c1="#6d5dfc" c2="#8e6bff" />
+            <Tile to={`/page/${acting.slug}/notifications`} icon={<Bell size={24} />} label="Notifications" hint="Followers, likes, comments" c1="#ff9f1c" c2="#ff6b3d" />
+            <Tile to={`/create?page=${acting.slug}`} icon={<SquarePlus size={24} />} label="Create post" hint="Post as your Page" c1="#0a84ff" c2="#2563eb" />
+            <Tile to={`/page/${acting.slug}/settings`} icon={<Settings size={24} />} label="Page settings" hint="Info, messages, comments" c1="#64748b" c2="#334155" />
+            <Tile to="/pages" icon={<Users size={24} />} label="Your Pages" hint="Manage your pages" c1="#12b5a6" c2="#1fd1a0" />
+          </div>
+        ) : (
+          <>
         <div className="mgrid">
           <Tile to="/messages" icon={<MessageCircle size={24} />} label={"iConnect"} hint="Chat with friends & groups" c1="#6d5dfc" c2="#8e6bff" badge={badges.unreadMessages} />
           <Tile to="/communities" icon={<Users size={24} />} label={tx('Communities')} hint="Join your community" c1="#0a84ff" c2="#3aa0ff" />
@@ -122,6 +133,10 @@ export default function MenuPage() {
           <span className="mpremium__soon">Coming soon</span>
         </div>
 
+          </>
+        )}
+
+        {!acting ? (
         <Expand icon={<Settings size={22} aria-hidden />} title={tx('Settings & privacy')}>
           <SubLink to="/settings" title={tx('Settings & privacy')} />
           <SubLink to="/settings/privacy" title="Privacy and security" />
@@ -130,6 +145,7 @@ export default function MenuPage() {
           <SubLink to={`/settings/section/${sectionSlug('Themes')}`} title={tx('Themes')} />
           <SubLink to={`/settings/section/${sectionSlug('Notifications')}`} title={tx('Notifications')} />
         </Expand>
+        ) : null}
 
         <Expand icon={<HelpCircle size={22} aria-hidden />} title={tx('Help Center')}>
           <SubLink to={`/settings/section/${sectionSlug('Support & Feedback')}`} title={tx('Support & Feedback')} />

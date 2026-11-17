@@ -92,7 +92,7 @@ export default function ProfileCustomizationPage() {
           {st.background_url ? <img src={st.background_url} alt="" style={{ width: '100%', maxHeight: 160, objectFit: 'cover', borderRadius: 12, marginTop: 10 }} /> : null}
           <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
             <Button variant="glass" loading={busy} disabled={!installed} onClick={() => bg.current?.click()}>{st.background_url ? 'Change photo' : 'Choose photo'}</Button>
-            {st.background_url ? <Button variant="ghost" disabled={busy} onClick={() => { const old = st.background_url; void change({ background_url: null }).then(() => old && removeImages('covers', [old])) }}>Remove</Button> : null}
+            {st.background_url ? <Button variant="ghost" disabled={busy} onClick={() => { const old = st.background_url; void change({ background_url: null }).then(() => { if (old) void removeImages('covers', [old]) }) }}>Remove</Button> : null}
           </div>
           <input ref={bg} type="file" accept="image/*" hidden onChange={(e) => void pickBackground(e.target.files?.[0])} />
         </GlassPanel>

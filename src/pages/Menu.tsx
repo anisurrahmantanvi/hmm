@@ -1,6 +1,9 @@
 import { useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Bell, Bookmark, ChevronDown, ChevronRight, Crown, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
+import { Bell, Bookmark, ChevronDown, ChevronRight, Check, Crown, Repeat, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
+import { useToast } from '@/components/ui/Toast'
+import { useAsync } from '@/hooks/common'
+import { listMyPages } from '@/services/pages'
 import { useAuth, useMe } from '@/app/AuthProvider'
 import { useBadges } from '@/app/BadgesProvider'
 import { Avatar } from '@/components/ui/Avatar'
@@ -52,6 +55,14 @@ export default function MenuPage() {
   const [confirmLogout, setConfirmLogout] = useState(false)
   const acting = useActingPage()
   const badges = useBadges()
+  const toast = useToast()
+  const [switchOpen, setSwitchOpen] = useState(false)
+  const mine = useAsync(() => listMyPages(me.id), [me.id])
+  const pick = (slug: string, name: string) => {
+    setActingAs(slug)
+    setSwitchOpen(false)
+    toast.show(slug ? `Page mode: ${name}` : 'Personal profile mode')
+  }
 
   const logOut = async () => {
     await signOut()
@@ -67,10 +78,29 @@ export default function MenuPage() {
             <Avatar src={acting ? acting.avatar_url : me.avatar_url} name={acting ? acting.name : me.display_name ?? me.username} size="lg" />
             <span className="grow" style={{ minWidth: 0 }}>
               <strong className="truncate" style={{ display: 'block', fontSize: 18 }}>{acting ? acting.name : me.display_name || me.username}</strong>
-              <span className="muted truncate" style={{ display: 'block' }}>{acting ? 'Page mode' : 'Your iConnecto profile'}</span>
+              <span className="muted truncate" style={{ display: 'block' }}>{acting ? 'Page mode' : 'Personal profile mode'}</span>
             </span>
           </Link>
-          {acting ? <button type="button" className="btn btn--block" style={{ marginTop: 12 }} onClick={() => setActingAs('')}>Switch to personal profile</button> : null}
+          <button type="button" className="mswitch" aria-expanded={switchOpen} onClick={() => setSwitchOpen((v) => !v)}>
+            <Repeat size={16} aria-hidden /> Switch <ChevronDown size={14} aria-hidden />
+          </button>
+          {switchOpen ? (
+            <div className="mswitch__list" role="menu">
+              <button type="button" role="menuitem" className="mswitch__row" onClick={() => pick('', '')}>
+                <Avatar src={me.avatar_url} name={me.display_name ?? me.username} size="sm" />
+                <span className="grow"><strong>{me.display_name || me.username}</strong><span className="small muted" style={{ display: 'block' }}>Personal profile</span></span>
+                {!acting ? <Check size={18} aria-hidden /> : null}
+              </button>
+              {(mine.data ?? []).map((r) => (
+                <button key={r.page.id} type="button" role="menuitem" className="mswitch__row" onClick={() => pick(r.page.slug, r.page.name)}>
+                  <Avatar src={r.page.avatar_url} name={r.page.name} size="sm" />
+                  <span className="grow"><strong>{r.page.name}</strong><span className="small muted" style={{ display: 'block' }}>Page</span></span>
+                  {acting?.id === r.page.id ? <Check size={18} aria-hidden /> : null}
+                </button>
+              ))}
+              {mine.data && !mine.data.length ? <Link to="/pages/new" className="mswitch__row"><span className="grow"><strong>Create a Page</strong><span className="small muted" style={{ display: 'block' }}>You have no pages yet</span></span></Link> : null}
+            </div>
+          ) : null}
         </GlassPanel>
 
         <div className="mgrid">

@@ -26,6 +26,15 @@ export default function DisplayPrefsPage() {
       <div className="stack">
         <GlassPanel className="settings-list">
           <div className="list-row" style={{ display: 'block' }}>
+            <strong style={{ display: 'block' }}>App layout</strong>
+            <span className="small muted">Thumb Arc (new) or Classic (bottom bar).</span>
+            <div className="row" style={{ gap: 8, marginTop: 8 }}>
+              {([['arc', 'Thumb Arc'], ['classic', 'Classic']] as const).map(([v, label]) => (
+                <button key={v} type="button" className={`chip ${p.layout === v ? 'chip--active' : ''}`} aria-pressed={p.layout === v} onClick={() => set({ layout: v })}>{label}</button>
+              ))}
+            </div>
+          </div>
+          <div className="list-row" style={{ display: 'block' }}>
             <strong style={{ display: 'block' }}>Text size</strong>
             <span className="small muted">Makes text larger or smaller across the app.</span>
             <div className="chips" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>

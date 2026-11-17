@@ -139,15 +139,15 @@ export function AppShell() {
       {!immersive && arc ? (
         <ArcNav
           createTo="/create"
-          outer={[
+          inner={[
             { to: '/', icon: Home, label: t('nav.home'), end: true },
             { to: '/reels', icon: Clapperboard, label: 'Reels' },
             { to: '/discover', icon: Compass, label: t('nav.discover') },
             { to: msgPath, icon: MessageCircle, label: t('nav.messages'), badge: badges.unreadMessages },
+          ]}
+          outer={[
             { to: notifPath, icon: Bell, label: t('nav.notifications'), badge: badges.unreadNotifications },
             { to: profilePath, icon: User, label: t('nav.profile') },
-          ]}
-          inner={[
             { to: '/communities', icon: Users, label: t('nav.communities') },
             { to: '/saved', icon: Bookmark, label: t('nav.saved') },
             { to: settingsPath, icon: Settings, label: t('nav.settings') },

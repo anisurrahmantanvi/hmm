@@ -1,30 +1,16 @@
-import { memo, useState, type ReactNode } from 'react'
+import { memo, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { emojiUrl, isEmojiOnly, splitEmoji } from '@/lib/emoji'
+import { isEmojiOnly } from '@/lib/emoji'
 
-/** One emoji, always drawn from the shared image set. Falls back to the native glyph if the image fails to load. */
+/** One emoji, drawn with the phone's own (default) emoji font. */
 export const Emoji = memo(function Emoji({ value }: { value: string }) {
-  const [failed, setFailed] = useState(false)
-  if (failed) return <span>{value}</span>
-  return (
-    <img
-      className="emoji"
-      src={emojiUrl(value)}
-      alt={value}
-      draggable={false}
-      loading="lazy"
-      decoding="async"
-      onError={() => setFailed(true)}
-    />
-  )
+  return <span className="emoji-native">{value}</span>
 })
 
 const TOKEN_RE = /(@[A-Za-z0-9_]{3,20}|https?:\/\/[^\s<]+)/g
 
 function renderEmojiText(text: string, keyPrefix: string): ReactNode[] {
-  return splitEmoji(text).map((seg, i) =>
-    seg.type === 'emoji' ? <Emoji key={`${keyPrefix}-${i}`} value={seg.value} /> : <span key={`${keyPrefix}-${i}`}>{seg.value}</span>,
-  )
+  return [<span key={keyPrefix}>{text}</span>]
 }
 
 /**

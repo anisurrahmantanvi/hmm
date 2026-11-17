@@ -342,3 +342,7 @@ html.has-callbar .page-header { top: calc(40px + var(--safe-top)); }
 .acting-banner__name { flex: 1; min-width: 0; color: #fff; }
 .acting-banner .btn { padding: 6px 12px; font-size: 13px; }
 .profile-styled { border-radius: 0; }
+
+/* Default (device) emoji */
+.emoji-native { font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; font-style: normal; }
+.rich--jumbo { font-size: 2.4em; line-height: 1.15; }

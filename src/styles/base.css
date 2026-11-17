@@ -166,27 +166,27 @@ html.minimal .btn--glass { background: var(--field); border-color: transparent; 
 html.minimal .comment__likes { box-shadow: none; border: 1px solid var(--glass-edge); }
 
 /* ======================================================================
-   iConnecto "Ink & Arc" identity: warm paper, ink-black text, vermilion accent.
+   iConnecto "Ink & Arc" identity: soft grey-white, ink-black text, monochrome.
    One-thumb navigation (Thumb Arc), full-bleed posts separated by hairlines. No sidebar, no tab bar, no blue/purple glass.
    ====================================================================== */
 html.arc, html.arc.minimal {
-  --bg: #f5f1ea; --glass: #f5f1ea; --glass-strong: #fbf8f3; --glass-solid: #f5f1ea;
+  --bg: #f4f4f5; --glass: #f4f4f5; --glass-strong: #ffffff; --glass-solid: #f4f4f5;
   --bg-orb-1: transparent; --bg-orb-2: transparent; --bg-orb-3: transparent;
-  --text: #17130f; --text-muted: #5f574d; --text-faint: #8c8377;
-  --accent: #e8451e; --accent-2: #e8451e; --like: #e8451e;
-  --glass-edge: rgba(23, 19, 15, 0.12); --field: #ece6db; --hover: rgba(23, 19, 15, 0.06);
+  --text: #0b0b0c; --text-muted: #66666b; --text-faint: #9a9aa0;
+  --accent: #0b0b0c; --accent-2: #0b0b0c; --like: #e5484d;
+  --glass-edge: rgba(11, 11, 12, 0.1); --field: #ebebed; --hover: rgba(11, 11, 12, 0.05);
   --nav-h: 0px; --col-w: 680px;
 }
 html.arc[data-theme='dark'] {
-  --bg: #0f0d0b; --glass: #0f0d0b; --glass-strong: #1a1714; --glass-solid: #0f0d0b;
-  --text: #f3ede4; --text-muted: #b3aa9d; --text-faint: #7f766a;
-  --glass-edge: rgba(243, 237, 228, 0.14); --field: #1d1a16; --hover: rgba(243, 237, 228, 0.08);
+  --bg: #09090a; --glass: #09090a; --glass-strong: #151517; --glass-solid: #09090a;
+  --text: #f4f4f5; --text-muted: #a6a6ab; --text-faint: #6f6f75;
+  --glass-edge: rgba(244, 244, 245, 0.12); --field: #1a1a1c; --hover: rgba(244, 244, 245, 0.07);
 }
 @media (prefers-color-scheme: dark) {
   html.arc:not([data-theme='light']):not([data-theme='dark']) {
-    --bg: #0f0d0b; --glass: #0f0d0b; --glass-strong: #1a1714; --glass-solid: #0f0d0b;
-    --text: #f3ede4; --text-muted: #b3aa9d; --text-faint: #7f766a;
-    --glass-edge: rgba(243, 237, 228, 0.14); --field: #1d1a16; --hover: rgba(243, 237, 228, 0.08);
+    --bg: #09090a; --glass: #09090a; --glass-strong: #151517; --glass-solid: #09090a;
+    --text: #f4f4f5; --text-muted: #a6a6ab; --text-faint: #6f6f75;
+    --glass-edge: rgba(244, 244, 245, 0.12); --field: #1a1a1c; --hover: rgba(244, 244, 245, 0.07);
   }
 }
 html.arc body::before { display: none; }
@@ -207,8 +207,8 @@ html.arc .arc__fab {
 html.arc .arc__fab { touch-action: none; user-select: none; -webkit-user-select: none; }
 html.arc .arc__fab--drag { transition: none; transform: scale(1.1); }
 html.arc .arc__fab:active { transform: scale(.94); }
-html.arc .arc--open .arc__fab { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: none; }
-html.arc .arc__dot { position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+html.arc .arc--open .arc__fab { background: var(--accent); border-color: var(--accent); color: var(--bg); box-shadow: none; }
+html.arc .arc__dot { position: absolute; top: 3px; right: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--text); border: 2px solid var(--bg); }
 html.arc .arc__scrim { position: fixed; inset: 0; border: 0; padding: 0; background: color-mix(in srgb, var(--bg) 86%, transparent); animation: arcFade .18s ease-out; }
 html.arc .arc__ring { position: fixed; width: 0; height: 0; pointer-events: none; }
 html.arc .arc__item {
@@ -217,9 +217,9 @@ html.arc .arc__item {
   opacity: 0; transform: translate(0, 0) scale(.4); pointer-events: none; transition: transform .28s var(--ease) var(--d, 0ms), opacity .2s ease var(--d, 0ms);
 }
 html.arc .arc--open .arc__item { opacity: 1; transform: translate(var(--x), var(--y)) scale(1); pointer-events: auto; }
-html.arc .arc__item--create { background: var(--accent); border-color: var(--accent); color: #fff; }
-html.arc .arc__item[aria-current='page'] { background: var(--accent); border-color: var(--accent); color: #fff; }
-html.arc .arc__badge { position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; display: grid; place-items: center; }
+html.arc .arc__item--create { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+html.arc .arc__item[aria-current='page'] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+html.arc .arc__badge { position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--accent); color: var(--bg); font-size: 11px; font-weight: 800; display: grid; place-items: center; }
 @keyframes arcFade { from { opacity: 0 } to { opacity: 1 } }
 
 /* Full-bleed posts, hairlines between them */
@@ -229,3 +229,13 @@ html.arc .post__media, html.arc .post img.media, html.arc .post video { border-r
 html.arc .btn--primary { background: var(--text); color: var(--bg); border-color: var(--text); box-shadow: none; }
 html.arc .btn--primary:active { background: var(--accent); border-color: var(--accent); }
 html.arc .chip[aria-pressed='true'], html.arc .chip--active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+/* Premium touches: tight type, hairlines, soft depth */
+html.arc body { letter-spacing: -0.005em; -webkit-font-smoothing: antialiased; }
+html.arc h1, html.arc h2, html.arc h3, html.arc .page-header { letter-spacing: -0.03em; }
+html.arc .arc__fab { border: 1px solid var(--glass-edge); background: var(--glass-strong); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.08); }
+html.arc .arc--open .arc__fab { background: var(--text); border-color: var(--text); color: var(--bg); }
+html.arc .arc__item { border: 1px solid var(--glass-edge); background: var(--glass-strong); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); }
+html.arc .arc__item[aria-current='page'], html.arc .arc__item--create { background: var(--text); border-color: var(--text); color: var(--bg); }
+html.arc .arc__scrim { background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+html.arc .chip, html.arc .search-box, html.arc .composer-bar { border-color: var(--glass-edge); }

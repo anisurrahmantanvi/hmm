@@ -24,6 +24,7 @@ import {
   setCommentLike,
 } from '@/services/comments'
 import { compactNumber, timeAgo } from '@/lib/format'
+import { matchesHiddenWord } from '@/lib/hiddenWords'
 import { errorMessage } from '@/lib/supabase'
 
 interface Props {
@@ -249,6 +250,7 @@ const CommentRow = memo(function CommentRow({
   const canDelete = mine || postAuthorId === me.id
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(comment.content)
+  const [revealed, setRevealed] = useState(false)
   const [saving, setSaving] = useState(false)
   const [confirm, setConfirm] = useState(false)
   const pending = useRef(false)
@@ -323,7 +325,11 @@ const CommentRow = memo(function CommentRow({
           <div className="comment__bubbleRow">
             <div className="comment__bubble">
               <Link to={a ? `/u/${a.username}` : '#'} className="post__name">{a?.display_name || a?.username || 'Deleted user'}<VerifiedBadge badge={a?.badge} size={14} /></Link>
-              <div className="comment__text"><RichText text={comment.content} /></div>
+              <div className="comment__text">
+                {!mine && !revealed && matchesHiddenWord(comment.content)
+                  ? <span className="muted">Hidden comment · <button type="button" className="link-btn" onClick={() => setRevealed(true)}>Show</button></span>
+                  : <RichText text={comment.content} />}
+              </div>
               {comment.like_count > 0 ? (
                 <span className="comment__likes" aria-label={`${comment.like_count} likes`}><Heart size={12} fill="currentColor" /> {compactNumber(comment.like_count)}</span>
               ) : null}

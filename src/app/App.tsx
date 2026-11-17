@@ -58,6 +58,8 @@ const MyMediaPage = lazy(() => import('@/pages/settings/MyMedia'))
 const CopyTextPage = lazy(() => import('@/pages/settings/CopyText'))
 const ActivityLogPage = lazy(() => import('@/pages/settings/ActivityLog'))
 const PageNotificationsPage = lazy(() => import('@/pages/pages/PageNotifications'))
+const HiddenWordsPage = lazy(() => import('@/pages/settings/HiddenWordsPage'))
+const WellbeingPage = lazy(() => import('@/pages/settings/Wellbeing'))
 const DisplayPrefsPage = lazy(() => import('@/pages/settings/DisplayPrefsPage'))
 const MarketHomePage = lazy(() => import('@/pages/market/MarketHome'))
 const TwoFactorPage = lazy(() => import('@/pages/settings/TwoFactor'))
@@ -149,6 +151,8 @@ export function App() {
                 <Route path="/settings/media" element={<MyMediaPage />} />
                 <Route path="/settings/copy-text" element={<CopyTextPage />} />
                 <Route path="/settings/activity" element={<ActivityLogPage />} />
+                <Route path="/settings/hidden-words" element={<HiddenWordsPage />} />
+                <Route path="/settings/wellbeing" element={<WellbeingPage />} />
                 <Route path="/settings/display" element={<DisplayPrefsPage />} />
                 <Route path="/settings/help" element={<HelpCenterPage />} />
                 <Route path="/settings/about" element={<AboutPage />} />

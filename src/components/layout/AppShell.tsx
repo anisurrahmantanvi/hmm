@@ -1,4 +1,5 @@
 import { Suspense, useEffect } from 'react'
+import { WellbeingWatcher } from '@/components/layout/WellbeingWatcher'
 import { ActingBanner } from '@/components/pages/ActingBanner'
 import { unlockAudioOnFirstTouch } from '@/lib/ringtone'
 import { NavLink, Outlet, useLocation, useMatch } from 'react-router-dom'
@@ -113,6 +114,7 @@ export function AppShell() {
 
       <main className={`shell__main ${bleed ? 'shell__main--bleed' : ''}`} id="main" tabIndex={-1}>
         <ActingBanner />
+        <WellbeingWatcher />
         {/* Lazy pages suspend here, so the navigation stays on screen while a screen's code loads. */}
         <Suspense fallback={<Spinner />}>
           <Outlet />

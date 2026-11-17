@@ -244,8 +244,8 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     title: 'Hidden Words',
     items: [
       { title: 'Filter Offensive Words' },
-      { title: 'Custom Hidden Words' },
-      { title: 'Comment Filtering' },
+      { title: 'Custom Hidden Words', to: '/settings/hidden-words' },
+      { title: 'Comment Filtering', to: '/settings/hidden-words' },
       { title: 'Message Request Filtering' },
       { title: 'Spam Keyword Filtering' },
     ],
@@ -339,9 +339,9 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Digital Wellbeing',
     items: [
-      { title: 'Daily Usage Information' },
-      { title: 'Screen Time Reminder' },
-      { title: 'Break Reminders' },
+      { title: 'Daily Usage Information', to: '/settings/wellbeing' },
+      { title: 'Screen Time Reminder', to: '/settings/wellbeing' },
+      { title: 'Break Reminders', to: '/settings/wellbeing' },
       { title: 'Quiet Hours' },
       { title: 'Notification Summary' },
     ],

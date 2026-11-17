@@ -204,11 +204,13 @@ html.arc .arc__fab {
   display: grid; place-items: center; border: 2px solid var(--text); background: var(--bg); color: var(--text); cursor: pointer;
   box-shadow: 0 2px 10px rgba(23, 19, 15, 0.18); transition: transform .18s var(--ease), box-shadow .18s var(--ease);
 }
+html.arc .arc__fab { touch-action: none; user-select: none; -webkit-user-select: none; }
+html.arc .arc__fab--drag { transition: none; transform: scale(1.1); }
 html.arc .arc__fab:active { transform: scale(.94); }
 html.arc .arc--open .arc__fab { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: none; }
 html.arc .arc__dot { position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
 html.arc .arc__scrim { position: fixed; inset: 0; border: 0; padding: 0; background: color-mix(in srgb, var(--bg) 86%, transparent); animation: arcFade .18s ease-out; }
-html.arc .arc__ring { position: fixed; right: 46px; bottom: calc(48px + var(--safe-bottom)); width: 0; height: 0; pointer-events: none; }
+html.arc .arc__ring { position: fixed; width: 0; height: 0; pointer-events: none; }
 html.arc .arc__item {
   position: absolute; left: 0; top: 0; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%;
   display: grid; place-items: center; text-decoration: none; color: var(--text); background: var(--glass-strong); border: 1.5px solid var(--text);

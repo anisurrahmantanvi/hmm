@@ -44,7 +44,7 @@ export function ArcNav({ outer, inner, createTo }: { outer: ArcItem[]; inner: Ar
     <div className={`arc ${open ? 'arc--open' : ''}`}>
       {open ? <button type="button" className="arc__scrim" aria-label="Close menu" onClick={() => setOpen(false)} /> : null}
       <nav className="arc__ring" aria-label="Main navigation" aria-hidden={!open}>
-        {ring(outerAll, 175, 'o')}
+        {ring(outerAll, 192, 'o')}
         {ring(inner, 100, 'i')}
       </nav>
       <button type="button" className="arc__fab" aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen((v) => !v)}>

@@ -4,8 +4,9 @@ import { ActingRedirect } from '@/components/pages/ActingRedirect'
 import { useActingPage } from '@/hooks/useActingPage'
 import { ActingBanner } from '@/components/pages/ActingBanner'
 import { unlockAudioOnFirstTouch } from '@/lib/ringtone'
-import { NavLink, Outlet, useLocation, useMatch } from 'react-router-dom'
-import { Bell, Bookmark, Clapperboard, Compass, Home, MessageCircle, Plus, Settings, User, Users, WifiOff, type LucideIcon } from 'lucide-react'
+import { Outlet, useLocation, useMatch } from 'react-router-dom'
+import { Bell, Bookmark, Clapperboard, Compass, Home, MessageCircle, Settings, User, Users, WifiOff } from 'lucide-react'
+import { ArcNav } from '@/components/layout/ArcNav'
 import { useAuth } from '@/app/AuthProvider'
 import { useBadges } from '@/app/BadgesProvider'
 import { useOnline } from '@/hooks/common'
@@ -18,34 +19,8 @@ import { registerDevice } from '@/services/security'
 import { IncomingCallListener } from '@/components/calls/IncomingCall'
 import { CallProvider } from '@/app/CallProvider'
 import { Spinner } from '@/components/ui/Feedback'
-import { Logo } from '@/components/ui/Logo'
 
-interface NavItemProps {
-  to: string
-  icon: LucideIcon
-  label: string
-  badge?: number
-  end?: boolean
-  create?: boolean
-  /** Phone bar: icon only; the label stays available to screen readers. */
-  iconOnly?: boolean
-}
-
-function NavItem({ to, icon: Icon, label, badge = 0, end, create, iconOnly }: NavItemProps) {
-  return (
-    <NavLink to={to} end={end} className={`nav-item ${create ? 'nav-item--create' : ''}`}>
-      {create ? (
-        <span className="nav-create"><Icon size={22} aria-hidden /></span>
-      ) : (
-        <Icon size={22} aria-hidden />
-      )}
-      <span className={iconOnly ? 'sr-only' : undefined}>{label}</span>
-      {badge > 0 ? <span className="badge" aria-label={`${badge} unread`}>{badge > 99 ? '99+' : badge}</span> : null}
-    </NavLink>
-  )
-}
-
-/** Signed-in layout: glass sidebar on wide screens, floating bottom navigation on phones. */
+/** Signed-in layout: Thumb Arc navigation (one round button that opens the app as arcs). */
 export function AppShell() {
   const { t } = useT()
   const { profile } = useAuth()
@@ -104,21 +79,6 @@ export function AppShell() {
     <div className={`shell ${immersive ? 'shell--immersive' : ''} ${inChat ? 'shell--chat' : ''}`}>
       <a href="#main" className="skip-link">Skip to content</a>
 
-      <aside className="glass sidebar" aria-label="Main navigation">
-        <div className="brand"><Logo size={34} decorative /> iConnecto</div>
-        <NavItem to="/" icon={Home} label={t('nav.home')} end />
-        <NavItem to="/discover" icon={Compass} label={t('nav.discover')} />
-        <NavItem to="/reels" icon={Clapperboard} label="Reels" />
-        <NavItem to={msgPath} icon={MessageCircle} label={t('nav.messages')} badge={badges.unreadMessages} />
-        <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} />
-        <NavItem to="/communities" icon={Users} label={t('nav.communities')} />
-        <NavItem to="/saved" icon={Bookmark} label={t('nav.saved')} />
-        <NavItem to={profilePath} icon={User} label={t('nav.profile')} />
-        <NavItem to={settingsPath} icon={Settings} label={t('nav.settings')} />
-        <span className="spacer" />
-        <NavLink to="/create" className="btn btn--primary btn--block"><Plus size={18} aria-hidden /> {t('nav.create')}</NavLink>
-      </aside>
-
       <main className={`shell__main ${bleed ? 'shell__main--bleed' : ''}`} id="main" tabIndex={-1}>
         <ActingBanner />
         <ActingRedirect />
@@ -130,13 +90,22 @@ export function AppShell() {
       </main>
 
       {!immersive ? (
-        <nav className="glass bottom-nav bottom-nav--icons" aria-label="Main navigation">
-          <NavItem to="/" icon={Home} label={t('nav.home')} end iconOnly />
-          <NavItem to="/reels" icon={Clapperboard} label="Reels" iconOnly />
-          <NavItem to="/discover" icon={Compass} label={t('nav.discover')} iconOnly />
-          <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} iconOnly />
-          <NavItem to={profilePath} icon={User} label={t('nav.profile')} iconOnly />
-        </nav>
+        <ArcNav
+          createTo="/create"
+          outer={[
+            { to: '/', icon: Home, label: t('nav.home'), end: true },
+            { to: '/reels', icon: Clapperboard, label: 'Reels' },
+            { to: '/discover', icon: Compass, label: t('nav.discover') },
+            { to: msgPath, icon: MessageCircle, label: t('nav.messages'), badge: badges.unreadMessages },
+            { to: notifPath, icon: Bell, label: t('nav.notifications'), badge: badges.unreadNotifications },
+            { to: profilePath, icon: User, label: t('nav.profile') },
+          ]}
+          inner={[
+            { to: '/communities', icon: Users, label: t('nav.communities') },
+            { to: '/saved', icon: Bookmark, label: t('nav.saved') },
+            { to: settingsPath, icon: Settings, label: t('nav.settings') },
+          ]}
+        />
       ) : null}
 
       {!online ? (

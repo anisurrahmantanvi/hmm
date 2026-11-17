@@ -90,14 +90,6 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     ],
   },
   {
-    title: 'Add Account',
-    items: [
-      { title: 'Add Another Existing Account' },
-      { title: 'Switch Between Accounts' },
-      { title: 'Secure Session Management' },
-    ],
-  },
-  {
     title: 'Privacy Center',
     items: [
       { title: 'Privacy Checkup' },

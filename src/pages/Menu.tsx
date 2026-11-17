@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Bell, Bookmark, ChevronDown, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, UserPlus, Users } from 'lucide-react'
+import { Bell, Bookmark, ChevronDown, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
 import { useAuth, useMe } from '@/app/AuthProvider'
 import { Avatar } from '@/components/ui/Avatar'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
@@ -93,10 +93,6 @@ export default function MenuPage() {
         </Expand>
 
         <GlassPanel className="settings-list" as="nav" aria-label="Account">
-          <Link to={`/settings/section/${sectionSlug('Add Account')}`} className="list-row">
-            <UserPlus size={22} aria-hidden />
-            <strong className="grow">{tx('Add Account')}</strong>
-          </Link>
           <button type="button" className="list-row" onClick={() => setConfirmLogout(true)} style={{ width: '100%', textAlign: 'left' }}>
             <LogOut size={22} aria-hidden />
             <strong className="grow">{tx('Log out')}</strong>

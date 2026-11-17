@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { appUrl } from '@/lib/base'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Ban, Copy, Flag, Lock, LogOut, Menu, Phone, Settings, UserPlus, UserX, Video } from 'lucide-react'
+import { Ban, Copy, Flag, Lock, LogOut, Menu, Phone, Settings, UserX, Video } from 'lucide-react'
 import { useAuth, useMe } from '@/app/AuthProvider'
 import { ComposerBar } from '@/components/feed/ComposerBar'
 import { ReelStrip } from '@/components/feed/ReelStrip'
@@ -140,7 +140,6 @@ export default function ProfilePage() {
     ? isMe
       ? [
           { label: 'Settings & Privacy', icon: <Settings size={18} />, onSelect: () => navigate('/settings') },
-          { label: 'Add Account', icon: <UserPlus size={18} />, onSelect: () => toast.show('Coming soon') },
           { label: 'Log Out', icon: <LogOut size={18} />, danger: true, onSelect: () => setConfirmLogout(true) },
         ]
       : [

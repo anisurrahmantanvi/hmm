@@ -81,10 +81,12 @@ export default function MenuPage() {
               <span className="muted truncate" style={{ display: 'block' }}>{acting ? 'Page mode' : 'Personal profile mode'}</span>
             </span>
           </Link>
+          {acting || (mine.data?.length ?? 0) > 0 ? (
           <button type="button" className="mswitch" aria-expanded={switchOpen} onClick={() => setSwitchOpen((v) => !v)}>
             <Repeat size={16} aria-hidden /> Switch <ChevronDown size={14} aria-hidden />
           </button>
-          {switchOpen ? (
+          ) : null}
+          {switchOpen && (acting || (mine.data?.length ?? 0) > 0) ? (
             <div className="mswitch__list" role="menu">
               <button type="button" role="menuitem" className="mswitch__row" onClick={() => pick('', '')}>
                 <Avatar src={me.avatar_url} name={me.display_name ?? me.username} size="sm" />
@@ -98,33 +100,21 @@ export default function MenuPage() {
                   {acting?.id === r.page.id ? <Check size={18} aria-hidden /> : null}
                 </button>
               ))}
-              {mine.data && !mine.data.length ? <Link to="/pages/new" className="mswitch__row"><span className="grow"><strong>Create a Page</strong><span className="small muted" style={{ display: 'block' }}>You have no pages yet</span></span></Link> : null}
             </div>
           ) : null}
         </GlassPanel>
 
-        {acting ? (
-          <div className="mgrid">
-            <Tile to={`/page/${acting.slug}`} icon={<Flag size={24} />} label="Page profile" hint="View your Page" c1="#5b5bf0" c2="#8b5cf6" />
-            <Tile to={`/page/${acting.slug}/inbox`} icon={<MessageCircle size={24} />} label="Inbox" hint="Messages to your Page" c1="#6d5dfc" c2="#8e6bff" />
-            <Tile to={`/page/${acting.slug}/notifications`} icon={<Bell size={24} />} label="Notifications" hint="Followers, likes, comments" c1="#ff9f1c" c2="#ff6b3d" />
-            <Tile to={`/create?page=${acting.slug}`} icon={<SquarePlus size={24} />} label="Create post" hint="Post as your Page" c1="#0a84ff" c2="#2563eb" />
-            <Tile to={`/page/${acting.slug}/settings`} icon={<Settings size={24} />} label="Page settings" hint="Info, messages, comments" c1="#64748b" c2="#334155" />
-            <Tile to="/pages" icon={<Users size={24} />} label="Your Pages" hint="Manage your pages" c1="#12b5a6" c2="#1fd1a0" />
-          </div>
-        ) : (
-          <>
         <div className="mgrid">
-          <Tile to="/messages" icon={<MessageCircle size={24} />} label={"iConnect"} hint="Chat with friends & groups" c1="#6d5dfc" c2="#8e6bff" badge={badges.unreadMessages} />
+          <Tile to={acting ? `/page/${acting.slug}/inbox` : '/messages'} icon={<MessageCircle size={24} />} label={"iConnect"} hint="Chat with friends & groups" c1="#6d5dfc" c2="#8e6bff" badge={acting ? 0 : badges.unreadMessages} />
           <Tile to="/communities" icon={<Users size={24} />} label={tx('Communities')} hint="Join your community" c1="#0a84ff" c2="#3aa0ff" />
           <Tile to="/reels" icon={<Film size={24} />} label={"iClips"} hint="Short videos & reels" c1="#ff5a3d" c2="#ff2e7e" />
           <Tile to="/saved" icon={<Bookmark size={24} />} label={"Collections"} hint="Save your favorites" c1="#ffb020" c2="#ff8a00" />
           <Tile to="/discover" icon={<Compass size={24} />} label={"Discover"} hint="Explore more content" c1="#12b5a6" c2="#1fd1a0" />
-          <Tile to="/notifications" icon={<Bell size={24} />} label={"Activity"} hint="Check your activity" c1="#ff9f1c" c2="#ff6b3d" badge={badges.unreadNotifications} />
+          <Tile to={acting ? `/page/${acting.slug}/notifications` : '/notifications'} icon={<Bell size={24} />} label={"Activity"} hint="Check your activity" c1="#ff9f1c" c2="#ff6b3d" badge={acting ? 0 : badges.unreadNotifications} />
           <Tile to="/pages" icon={<Flag size={24} />} label={"Pages"} hint="Manage your pages" c1="#5b5bf0" c2="#8b5cf6" />
           <Tile to="/market" icon={<ShoppingBag size={24} />} label={"Buy & Sell"} hint="Buy, sell & trade" c1="#22c55e" c2="#0fa968" />
-          <Tile to="/create" icon={<SquarePlus size={24} />} label={"Create"} hint="Share something new" c1="#0a84ff" c2="#2563eb" />
-          <Tile to="/settings/profile" icon={<Pencil size={24} />} label={tx('Edit profile')} hint="Update your profile" c1="#8b5cf6" c2="#6d4af0" />
+          <Tile to={acting ? `/create?page=${acting.slug}` : '/create'} icon={<SquarePlus size={24} />} label={"Create"} hint="Share something new" c1="#0a84ff" c2="#2563eb" />
+          <Tile to={acting ? `/page/${acting.slug}/settings` : '/settings/profile'} icon={<Pencil size={24} />} label={acting ? 'Page settings' : tx('Edit profile')} hint={acting ? 'Update your Page' : 'Update your profile'} c1="#8b5cf6" c2="#6d4af0" />
         </div>
 
         <div className="mpremium" aria-label="iConnecto Premium, coming soon">
@@ -133,19 +123,14 @@ export default function MenuPage() {
           <span className="mpremium__soon">Coming soon</span>
         </div>
 
-          </>
-        )}
-
-        {!acting ? (
         <Expand icon={<Settings size={22} aria-hidden />} title={tx('Settings & privacy')}>
-          <SubLink to="/settings" title={tx('Settings & privacy')} />
+          <SubLink to={acting ? `/page/${acting.slug}/settings` : '/settings'} title={tx('Settings & privacy')} />
           <SubLink to="/settings/privacy" title="Privacy and security" />
           <SubLink to="/settings/blocked" title="Blocked accounts" />
           <SubLink to={`/settings/section/${sectionSlug('Preferences')}`} title={tx('Language')} />
           <SubLink to={`/settings/section/${sectionSlug('Themes')}`} title={tx('Themes')} />
           <SubLink to={`/settings/section/${sectionSlug('Notifications')}`} title={tx('Notifications')} />
         </Expand>
-        ) : null}
 
         <Expand icon={<HelpCircle size={22} aria-hidden />} title={tx('Help Center')}>
           <SubLink to={`/settings/section/${sectionSlug('Support & Feedback')}`} title={tx('Support & Feedback')} />

@@ -382,3 +382,6 @@ html.has-callbar .page-header { top: calc(40px + var(--safe-top)); }
 .mswitch__row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border: 0; border-bottom: 1px solid var(--glass-edge); background: transparent; color: inherit; font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
 .mswitch__row:last-child { border-bottom: 0; }
 .mswitch__row:active { background: var(--hover); }
+
+.mswitch { margin-left: 16px; }
+.glass.bottom-nav, .bottom-nav { background: color-mix(in srgb, var(--glass-solid) 94%, transparent); }

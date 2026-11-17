@@ -358,3 +358,20 @@ html.has-callbar .page-header { top: calc(40px + var(--safe-top)); }
 .chooser__pic i:nth-child(1) { top: 8px; } .chooser__pic i:nth-child(2) { top: 28px; } .chooser__pic i:nth-child(3) { top: 48px; }
 .chooser__pic--arc b { position: absolute; right: 5px; bottom: 5px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--text); background: var(--accent); }
 .chooser__pic--classic u { position: absolute; left: 4px; right: 4px; bottom: 4px; height: 12px; border-radius: 6px; background: var(--accent); opacity: .85; }
+
+/* Menu page */
+.mgrid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 480px) { .mgrid { grid-template-columns: 1fr 1fr; } }
+.mtile { position: relative; display: flex; align-items: center; gap: 12px; padding: 12px 10px 12px 12px; border-radius: 18px; border: 1px solid var(--glass-edge); background: var(--glass-strong); color: inherit; text-decoration: none; min-width: 0; }
+.mtile:active { background: var(--hover); }
+.mtile__icon { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; color: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.35); }
+.mtile__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mtile__text strong { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+.mtile__text span { font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mtile__chev { flex: none; color: var(--text-faint); }
+.mtile__badge { position: absolute; top: -6px; right: 8px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; display: grid; place-items: center; background: #e5484d; color: #fff; font-size: 12px; font-weight: 800; }
+.mpremium { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 18px; background: linear-gradient(135deg, #1c1830, #3a2a6b); color: #fff; }
+.mpremium svg { color: #ffd166; flex: none; }
+.mpremium__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mpremium__text span { font-size: 12px; opacity: .75; }
+.mpremium__soon { flex: none; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); }

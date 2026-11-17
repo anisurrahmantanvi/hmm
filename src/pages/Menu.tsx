@@ -1,7 +1,8 @@
 import { useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Bell, Bookmark, ChevronDown, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
+import { Bell, Bookmark, ChevronDown, ChevronRight, Crown, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
 import { useAuth, useMe } from '@/app/AuthProvider'
+import { useBadges } from '@/app/BadgesProvider'
 import { Avatar } from '@/components/ui/Avatar'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { GlassPanel } from '@/components/ui/GlassPanel'
@@ -11,11 +12,13 @@ import { useActingPage } from '@/hooks/useActingPage'
 import { setActingAs } from '@/lib/actingAs'
 import { sectionSlug } from '@/pages/settings/settingsMenu'
 
-function Tile({ to, icon, label, color }: { to: string; icon: ReactNode; label: string; color: string }) {
+function Tile({ to, icon, label, hint, c1, c2, badge = 0 }: { to: string; icon: ReactNode; label: string; hint: string; c1: string; c2: string; badge?: number }) {
   return (
-    <Link to={to} className="glass menu-tile" style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: 14, borderRadius: 'var(--r-md)', color: 'inherit' }}>
-      <span style={{ color }}>{icon}</span>
-      <strong style={{ fontWeight: 600 }}>{label}</strong>
+    <Link to={to} className="mtile">
+      <span className="mtile__icon" style={{ background: `linear-gradient(135deg, ${c1}, ${c2})` }}>{icon}</span>
+      <span className="mtile__text"><strong>{label}</strong><span>{hint}</span></span>
+      {badge > 0 ? <span className="mtile__badge" aria-label={`${badge} unread`}>{badge > 99 ? '99+' : badge}</span> : null}
+      <ChevronRight size={18} className="mtile__chev" aria-hidden />
     </Link>
   )
 }
@@ -48,6 +51,7 @@ export default function MenuPage() {
   const navigate = useNavigate()
   const [confirmLogout, setConfirmLogout] = useState(false)
   const acting = useActingPage()
+  const badges = useBadges()
 
   const logOut = async () => {
     await signOut()
@@ -69,17 +73,23 @@ export default function MenuPage() {
           {acting ? <button type="button" className="btn btn--block" style={{ marginTop: 12 }} onClick={() => setActingAs('')}>Switch to personal profile</button> : null}
         </GlassPanel>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Tile to="/messages" icon={<MessageCircle size={28} />} label="iConnect" color="#7a5cff" />
-          <Tile to="/communities" icon={<Users size={28} />} label={tx('Communities')} color="#0a84ff" />
-          <Tile to="/reels" icon={<Film size={28} />} label="iClips" color="#ff6a3d" />
-          <Tile to="/saved" icon={<Bookmark size={28} />} label="Collections" color="#a35cff" />
-          <Tile to="/discover" icon={<Compass size={28} />} label="Discover" color="#1db8a6" />
-          <Tile to="/notifications" icon={<Bell size={28} />} label="Activity" color="#f5a524" />
-          <Tile to="/pages" icon={<Flag size={28} />} label="Pages" color="#7a5af8" />
-          <Tile to="/market" icon={<ShoppingBag size={28} />} label="Buy & Sell" color="#e0457b" />
-          <Tile to="/create" icon={<SquarePlus size={28} />} label="Create" color="#0a84ff" />
-          <Tile to="/settings/profile" icon={<Pencil size={28} />} label={tx('Edit profile')} color="#34c759" />
+        <div className="mgrid">
+          <Tile to="/messages" icon={<MessageCircle size={24} />} label={"iConnect"} hint="Chat with friends & groups" c1="#6d5dfc" c2="#8e6bff" badge={badges.unreadMessages} />
+          <Tile to="/communities" icon={<Users size={24} />} label={tx('Communities')} hint="Join your community" c1="#0a84ff" c2="#3aa0ff" />
+          <Tile to="/reels" icon={<Film size={24} />} label={"iClips"} hint="Short videos & reels" c1="#ff5a3d" c2="#ff2e7e" />
+          <Tile to="/saved" icon={<Bookmark size={24} />} label={"Collections"} hint="Save your favorites" c1="#ffb020" c2="#ff8a00" />
+          <Tile to="/discover" icon={<Compass size={24} />} label={"Discover"} hint="Explore more content" c1="#12b5a6" c2="#1fd1a0" />
+          <Tile to="/notifications" icon={<Bell size={24} />} label={"Activity"} hint="Check your activity" c1="#ff9f1c" c2="#ff6b3d" badge={badges.unreadNotifications} />
+          <Tile to="/pages" icon={<Flag size={24} />} label={"Pages"} hint="Manage your pages" c1="#5b5bf0" c2="#8b5cf6" />
+          <Tile to="/market" icon={<ShoppingBag size={24} />} label={"Buy & Sell"} hint="Buy, sell & trade" c1="#22c55e" c2="#0fa968" />
+          <Tile to="/create" icon={<SquarePlus size={24} />} label={"Create"} hint="Share something new" c1="#0a84ff" c2="#2563eb" />
+          <Tile to="/settings/profile" icon={<Pencil size={24} />} label={tx('Edit profile')} hint="Update your profile" c1="#8b5cf6" c2="#6d4af0" />
+        </div>
+
+        <div className="mpremium" aria-label="iConnecto Premium, coming soon">
+          <Crown size={28} aria-hidden />
+          <span className="mpremium__text"><strong>iConnecto Premium</strong><span>Unlock more amazing features</span></span>
+          <span className="mpremium__soon">Coming soon</span>
         </div>
 
         <Expand icon={<Settings size={22} aria-hidden />} title={tx('Settings & privacy')}>

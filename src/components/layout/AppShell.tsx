@@ -2,10 +2,9 @@ import { Suspense, useEffect } from 'react'
 import { WellbeingWatcher } from '@/components/layout/WellbeingWatcher'
 import { ActingRedirect } from '@/components/pages/ActingRedirect'
 import { useActingPage } from '@/hooks/useActingPage'
-import { ActingBanner } from '@/components/pages/ActingBanner'
 import { unlockAudioOnFirstTouch } from '@/lib/ringtone'
 import { NavLink, Outlet, useLocation, useMatch } from 'react-router-dom'
-import { Bell, Bookmark, Clapperboard, Compass, Home, MessageCircle, Plus, Settings, User, Users, WifiOff, type LucideIcon } from 'lucide-react'
+import { Bell, Bookmark, Clapperboard, Compass, Home, Menu as MenuIcon, MessageCircle, Plus, Settings, User, Users, WifiOff, type LucideIcon } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { LayoutChooser } from '@/components/layout/LayoutChooser'
 import { useDisplayPrefs } from '@/lib/displayPrefs'
@@ -102,6 +101,7 @@ export function AppShell() {
   const profilePath = actingPage ? `/page/${actingPage.slug}` : `/u/${username}`
   const msgPath = actingPage ? `/page/${actingPage.slug}/inbox` : '/messages'
   const settingsPath = actingPage ? `/page/${actingPage.slug}/settings` : '/settings'
+  const createPath = actingPage ? `/create?page=${actingPage.slug}` : '/create'
   const notifPath = actingPage ? `/page/${actingPage.slug}/notifications` : '/notifications'
 
   return (
@@ -112,6 +112,16 @@ export function AppShell() {
       {!arc ? (
       <aside className="glass sidebar" aria-label="Main navigation">
         <div className="brand"><Logo size={34} decorative /> iConnecto</div>
+        {actingPage ? (
+          <>
+            <NavItem to={profilePath} icon={User} label="Page" />
+            <NavItem to={msgPath} icon={MessageCircle} label="Inbox" />
+            <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} />
+            <NavItem to="/menu" icon={MenuIcon} label="Menu" />
+            <NavItem to={settingsPath} icon={Settings} label={t('nav.settings')} />
+          </>
+        ) : (
+          <>
         <NavItem to="/" icon={Home} label={t('nav.home')} end />
         <NavItem to="/discover" icon={Compass} label={t('nav.discover')} />
         <NavItem to="/reels" icon={Clapperboard} label="Reels" />
@@ -121,13 +131,14 @@ export function AppShell() {
         <NavItem to="/saved" icon={Bookmark} label={t('nav.saved')} />
         <NavItem to={profilePath} icon={User} label={t('nav.profile')} />
         <NavItem to={settingsPath} icon={Settings} label={t('nav.settings')} />
+          </>
+        )}
         <span className="spacer" />
-        <NavLink to="/create" className="btn btn--primary btn--block"><Plus size={18} aria-hidden /> {t('nav.create')}</NavLink>
+        <NavLink to={createPath} className="btn btn--primary btn--block"><Plus size={18} aria-hidden /> {t('nav.create')}</NavLink>
       </aside>
       ) : null}
 
       <main className={`shell__main ${bleed ? 'shell__main--bleed' : ''}`} id="main" tabIndex={-1}>
-        <ActingBanner />
         <ActingRedirect />
         <WellbeingWatcher />
         {/* Lazy pages suspend here, so the navigation stays on screen while a screen's code loads. */}
@@ -138,14 +149,21 @@ export function AppShell() {
 
       {!immersive && arc ? (
         <ArcNav
-          createTo="/create"
-          inner={[
+          createTo={createPath}
+          inner={actingPage ? [
+            { to: profilePath, icon: User, label: 'Page' },
+            { to: msgPath, icon: MessageCircle, label: 'Inbox' },
+            { to: notifPath, icon: Bell, label: t('nav.notifications') },
+          ] : [
             { to: '/', icon: Home, label: t('nav.home'), end: true },
             { to: '/reels', icon: Clapperboard, label: 'Reels' },
             { to: '/discover', icon: Compass, label: t('nav.discover') },
             { to: msgPath, icon: MessageCircle, label: t('nav.messages'), badge: badges.unreadMessages },
           ]}
-          outer={[
+          outer={actingPage ? [
+            { to: '/menu', icon: MenuIcon, label: 'Menu' },
+            { to: settingsPath, icon: Settings, label: t('nav.settings') },
+          ] : [
             { to: notifPath, icon: Bell, label: t('nav.notifications'), badge: badges.unreadNotifications },
             { to: profilePath, icon: User, label: t('nav.profile') },
             { to: '/communities', icon: Users, label: t('nav.communities') },
@@ -157,11 +175,23 @@ export function AppShell() {
 
       {!immersive && !arc ? (
         <nav className="glass bottom-nav bottom-nav--icons" aria-label="Main navigation">
+          {actingPage ? (
+            <>
+              <NavItem to={profilePath} icon={User} label="Page" iconOnly />
+              <NavItem to={msgPath} icon={MessageCircle} label="Inbox" iconOnly />
+              <NavItem to={createPath} icon={Plus} label={t('nav.create')} iconOnly />
+              <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} iconOnly />
+              <NavItem to="/menu" icon={MenuIcon} label="Menu" iconOnly />
+            </>
+          ) : (
+            <>
           <NavItem to="/" icon={Home} label={t('nav.home')} end iconOnly />
           <NavItem to="/reels" icon={Clapperboard} label="Reels" iconOnly />
           <NavItem to="/discover" icon={Compass} label={t('nav.discover')} iconOnly />
           <NavItem to={notifPath} icon={Bell} label={t('nav.notifications')} badge={badges.unreadNotifications} iconOnly />
           <NavItem to={profilePath} icon={User} label={t('nav.profile')} iconOnly />
+            </>
+          )}
         </nav>
       ) : null}
 

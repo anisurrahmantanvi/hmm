@@ -11,7 +11,8 @@ export function ActingRedirect() {
   const navigate = useNavigate()
   useEffect(() => {
     if (!page) return
-    if (pathname === `/u/${me.username}`) navigate(`/page/${page.slug}`, { replace: true })
+    if (pathname === '/' || pathname === '/discover' || pathname === '/reels' || pathname === '/communities') navigate(`/page/${page.slug}`, { replace: true })
+    else if (pathname === `/u/${me.username}`) navigate(`/page/${page.slug}`, { replace: true })
     else if (pathname === '/messages') navigate(`/page/${page.slug}/inbox`, { replace: true })
     else if (pathname === '/settings') navigate(`/page/${page.slug}/settings`, { replace: true })
     else if (pathname === '/notifications') navigate(`/page/${page.slug}/notifications`, { replace: true })

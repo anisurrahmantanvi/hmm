@@ -295,12 +295,12 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Profile Customization',
     items: [
-      { title: 'Profile Themes' },
-      { title: 'Custom Profile Background' },
-      { title: 'Profile Accent Colors' },
-      { title: 'Custom Profile Layout' },
-      { title: 'Profile Music' },
-      { title: 'Profile Display Preferences' },
+      { title: 'Profile Themes', to: '/settings/profile-style' },
+      { title: 'Custom Profile Background', to: '/settings/profile-style' },
+      { title: 'Profile Accent Colors', to: '/settings/profile-style' },
+      { title: 'Custom Profile Layout', to: '/settings/profile-style' },
+      { title: 'Profile Music', to: '/settings/profile-style' },
+      { title: 'Profile Display Preferences', to: '/settings/profile-style' },
     ],
   },
   {

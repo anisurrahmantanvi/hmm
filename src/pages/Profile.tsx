@@ -20,6 +20,9 @@ import { getOrCreateDm } from '@/services/chat'
 import { countFriends, getFriendState, type FriendState } from '@/services/friends'
 import { getIsPrivate } from '@/services/privateAccount'
 import { blockUser, isBlockedByMe, unblockUser } from '@/services/moderation'
+import { ProfileMusic } from '@/components/profile/ProfileMusic'
+import { THEMES } from '@/lib/profileThemes'
+import { getProfileStyle, DEFAULT_STYLE } from '@/services/profileStyle'
 import { getProfileAbout, getProfileByUsername } from '@/services/profiles'
 
 export default function ProfilePage() {
@@ -42,6 +45,14 @@ export default function ProfilePage() {
   // Optional details; if they cannot be loaded the About card still shows the joining date.
   const { data: about } = useAsync(() => (profile ? getProfileAbout(profile.id).catch(() => null) : Promise.resolve(null)), [profile?.id])
 
+  const { data: styled } = useAsync(() => (profile ? getProfileStyle(profile.id) : Promise.resolve(null)), [profile?.id])
+  const style = styled?.style ?? DEFAULT_STYLE
+  const themeCss = THEMES.find((t) => t.id === style.theme)?.css ?? 'none'
+  const wrapStyle: React.CSSProperties & Record<string, string> = {}
+  if (style.accent) { wrapStyle['--accent'] = style.accent; wrapStyle['--accent-2'] = style.accent }
+  if (style.background_url) { wrapStyle.backgroundImage = `linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.28)), url("${style.background_url}")`; wrapStyle.backgroundSize = 'cover'; wrapStyle.backgroundPosition = 'center'; wrapStyle.backgroundAttachment = 'fixed' }
+  else if (themeCss !== 'none') wrapStyle.backgroundImage = themeCss
+  const aboutCard = style.show_about ? <ProfileAbout about={about} joinedAt={profile?.created_at ?? ''} /> : null
   const [friendState, setFriendState] = useState<FriendState>('none')
   const [friendsCount, setFriendsCount] = useState<number | null>(null)
   const [isPrivate, setIsPrivate] = useState(false)
@@ -187,7 +198,7 @@ export default function ProfilePage() {
         back={isMe ? undefined : true}
         actions={isMe ? <span className="page-header__actions"><Link to="/menu" className="icon-btn" aria-label="Menu"><Menu size={24} /></Link></span> : undefined}
       />
-      <div className="stack feed-bleed">
+      <div className="stack feed-bleed profile-styled" style={wrapStyle}>
         <ProfileHeader
           profile={profile}
           isMe={isMe}
@@ -201,7 +212,8 @@ export default function ProfilePage() {
           onAddStory={isMe ? () => toast.show('Stories are coming soon') : undefined}
         />
 
-        <ProfileAbout about={about} joinedAt={profile.created_at} />
+        {style.music_url ? <ProfileMusic url={style.music_url} title={style.music_title} /> : null}
+        {style.layout === 'classic' ? aboutCard : null}
 
         {blocked ? (
           <div className="glass card col" role="status">
@@ -218,7 +230,7 @@ export default function ProfilePage() {
         ) : (
           <div>
           {isMe ? <ComposerBar /> : null}
-          <ReelStrip authorId={profile.id} title={isMe ? 'Your reels' : 'Reels'} />
+          {style.show_reels ? <ReelStrip authorId={profile.id} title={isMe ? 'Your reels' : 'Reels'} /> : null}
           <PostFeed
             source={{ kind: 'author', authorId: profile.id }}
             empty={
@@ -233,6 +245,7 @@ export default function ProfilePage() {
           />
           </div>
         )}
+        {style.layout === 'about_last' ? aboutCard : null}
       </div>
 
       <ConfirmDialog

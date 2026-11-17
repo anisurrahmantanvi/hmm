@@ -64,6 +64,7 @@ const HiddenPostsPage = lazy(() => import('@/pages/settings/FeedLists').then((m)
 const SnoozedPage = lazy(() => import('@/pages/settings/FeedLists').then((m) => ({ default: m.SnoozedPage })))
 const SearchHistoryPage = lazy(() => import('@/pages/settings/SearchHistoryPage'))
 const FavoritesPage = lazy(() => import('@/pages/settings/FavoritesPage'))
+const ProfileCustomizationPage = lazy(() => import('@/pages/settings/ProfileCustomization'))
 const DisplayPrefsPage = lazy(() => import('@/pages/settings/DisplayPrefsPage'))
 const MarketHomePage = lazy(() => import('@/pages/market/MarketHome'))
 const TwoFactorPage = lazy(() => import('@/pages/settings/TwoFactor'))
@@ -161,6 +162,7 @@ export function App() {
                 <Route path="/settings/snoozed" element={<SnoozedPage />} />
                 <Route path="/settings/search-history" element={<SearchHistoryPage />} />
                 <Route path="/settings/favorites" element={<FavoritesPage />} />
+                <Route path="/settings/profile-style" element={<ProfileCustomizationPage />} />
                 <Route path="/settings/display" element={<DisplayPrefsPage />} />
                 <Route path="/settings/help" element={<HelpCenterPage />} />
                 <Route path="/settings/about" element={<AboutPage />} />

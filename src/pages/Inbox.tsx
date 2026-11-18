@@ -1,7 +1,7 @@
 import { PeerBadge } from '@/components/ui/PeerBadge'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { MessageCircle, Plus, Settings } from 'lucide-react'
+import { MessageCircle, Plus, Settings, Sparkles } from 'lucide-react'
 import { useMe } from '@/app/AuthProvider'
 import { NewChatDialog } from '@/components/chat/NewChatDialog'
 import { PresenceAvatar } from '@/components/ui/PresenceAvatar'
@@ -62,6 +62,16 @@ export default function InboxPage() {
         <Link to="/messages?requests=1" className="list-row list-row--link glass">
           <strong className="grow">Message requests</strong>
           <span className="count-pill">{requestCount}</span>
+        </Link>
+      ) : null}
+
+      {!showRequests ? (
+        <Link to="/ai" className="list-row list-row--link glass ai-row" aria-label="iConnecto AI, ask anything">
+          <span className="ai-row__avatar" aria-hidden><Sparkles size={24} /></span>
+          <div className="grow" style={{ minWidth: 0 }}>
+            <div className="row"><strong className="truncate">iConnecto AI</strong><span className="ai-row__tag">AI</span></div>
+            <span className="small muted">Ask me anything. Free.</span>
+          </div>
         </Link>
       ) : null}
 

@@ -50,7 +50,7 @@ export default function AiChatPage() {
     <>
       <PageHeader
         title="iConnecto AI"
-        back
+        back="/messages"
         actions={msgs.length ? <button type="button" className="icon-btn" aria-label="Clear chat" onClick={() => { setMsgs([]); setNote('') }}><Trash2 size={20} /></button> : undefined}
       />
       <div className="ai">

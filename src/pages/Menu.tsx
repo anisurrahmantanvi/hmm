@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Bell, Bookmark, ChevronDown, ChevronRight, Check, Sparkles, Crown, Repeat, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
+import { Bell, Bookmark, ChevronDown, ChevronRight, Check, Crown, Repeat, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
 import { useToast } from '@/components/ui/Toast'
 import { useAsync } from '@/hooks/common'
 import { listMyPages } from '@/services/pages'
@@ -116,12 +116,6 @@ export default function MenuPage() {
           <Tile to={acting ? `/create?page=${acting.slug}` : '/create'} icon={<SquarePlus size={24} />} label={"Create"} hint="Share something new" c1="#0a84ff" c2="#2563eb" />
           <Tile to={acting ? `/page/${acting.slug}/settings` : '/settings/profile'} icon={<Pencil size={24} />} label={acting ? 'Page settings' : tx('Edit profile')} hint={acting ? 'Update your Page' : 'Update your profile'} c1="#8b5cf6" c2="#6d4af0" />
         </div>
-
-        <Link to="/ai" className="mtile">
-          <span className="mtile__icon" style={{ background: 'linear-gradient(135deg, #111, #444)' }}><Sparkles size={24} /></span>
-          <span className="mtile__text"><strong>iConnecto AI</strong><span>Ask anything, free</span></span>
-          <ChevronRight size={18} className="mtile__chev" aria-hidden />
-        </Link>
 
         <div className="mpremium" aria-label="iConnecto Premium, coming soon">
           <Crown size={28} aria-hidden />

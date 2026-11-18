@@ -11,9 +11,11 @@ export interface DisplayPrefs {
   minimal: boolean
   /** App layout: 'arc' = Thumb Arc (new), 'classic' = sidebar / bottom bar. null = not chosen yet. */
   layout: 'arc' | 'classic' | null
+  /** Colour style: 'obsidian' = Obsidian Dark + Electric Violet, 'mono' = soft grey-white. */
+  look: 'obsidian' | 'mono'
 }
 const KEY = 'iconnecto.displayPrefs'
-export const DEFAULTS: DisplayPrefs = { fontSize: 'normal', reducedMotion: false, highContrast: false, dataSaver: false, reelsAutoplay: true, minimal: true, layout: null }
+export const DEFAULTS: DisplayPrefs = { fontSize: 'normal', reducedMotion: false, highContrast: false, dataSaver: false, reelsAutoplay: true, minimal: true, layout: null, look: 'obsidian' }
 const SCALE = { small: 0.92, normal: 1, large: 1.12, xlarge: 1.25 }
 
 export function getDisplayPrefs(): DisplayPrefs {
@@ -32,6 +34,7 @@ export function applyDisplayPrefs(p: DisplayPrefs = getDisplayPrefs()): void {
   r.classList.toggle('data-saver', p.dataSaver)
   r.classList.toggle('minimal', p.minimal)
   r.classList.toggle('arc', p.layout === 'arc')
+  r.classList.toggle('obsidian', p.look === 'obsidian')
 }
 
 export function setDisplayPrefs(patch: Partial<DisplayPrefs>): DisplayPrefs {

@@ -35,6 +35,15 @@ export default function DisplayPrefsPage() {
             </div>
           </div>
           <div className="list-row" style={{ display: 'block' }}>
+            <strong style={{ display: 'block' }}>Colour style</strong>
+            <span className="small muted">Obsidian Dark with Electric Violet, or soft grey-white.</span>
+            <div className="row" style={{ gap: 8, marginTop: 8 }}>
+              {([['obsidian', 'Obsidian Violet'], ['mono', 'Grey-white']] as const).map(([v, label]) => (
+                <button key={v} type="button" className={`chip ${p.look === v ? 'chip--active' : ''}`} aria-pressed={p.look === v} onClick={() => set({ look: v })}>{label}</button>
+              ))}
+            </div>
+          </div>
+          <div className="list-row" style={{ display: 'block' }}>
             <strong style={{ display: 'block' }}>Text size</strong>
             <span className="small muted">Makes text larger or smaller across the app.</span>
             <div className="chips" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>

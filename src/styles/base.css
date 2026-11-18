@@ -239,3 +239,34 @@ html.arc .arc__item { border: 1px solid var(--glass-edge); background: var(--gla
 html.arc .arc__item[aria-current='page'], html.arc .arc__item--create { background: var(--text); border-color: var(--text); color: var(--bg); }
 html.arc .arc__scrim { background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 html.arc .chip, html.arc .search-box, html.arc .composer-bar { border-color: var(--glass-edge); }
+
+/* ======================================================================
+   Obsidian Violet: near-black surfaces, electric violet as the one colour.
+   Works with both layouts. Settings -> Accessibility & Media -> Colour style.
+   ====================================================================== */
+html.obsidian, html.obsidian[data-theme] {
+  color-scheme: dark;
+  --bg: #08080c; --glass: #08080c; --glass-strong: #11111a; --glass-solid: #0c0c12;
+  --bg-orb-1: transparent; --bg-orb-2: transparent; --bg-orb-3: transparent;
+  --text: #ecebf6; --text-muted: #9b99b3; --text-faint: #65637a;
+  --accent: #8b5cff; --accent-2: #b08cff; --accent-contrast: #ffffff; --like: #ff4f8b;
+  --glass-edge: rgba(139, 92, 255, 0.16); --field: #151520; --hover: rgba(139, 92, 255, 0.1);
+  --shadow-sm: none; --shadow-md: 0 10px 34px rgba(0, 0, 0, 0.6);
+}
+html.obsidian body::before { display: none; }
+html.obsidian .page-header { background: color-mix(in srgb, var(--bg) 88%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+html.obsidian .btn--primary, html.obsidian.arc .btn--primary { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #fff; border-color: transparent; box-shadow: 0 6px 22px rgba(124, 58, 237, 0.4); }
+html.obsidian .chip[aria-pressed='true'], html.obsidian .chip--active { background: rgba(139, 92, 255, 0.18); color: #c9b6ff; border-color: rgba(139, 92, 255, 0.55); }
+html.obsidian .arc__fab { background: #11111a; border: 1px solid rgba(139, 92, 255, 0.5); box-shadow: 0 0 0 4px rgba(139, 92, 255, 0.12), 0 8px 30px rgba(124, 58, 237, 0.45); }
+html.obsidian .arc--open .arc__fab { background: linear-gradient(135deg, #7c3aed, #a78bfa); border-color: transparent; color: #fff; }
+html.obsidian .arc__item { background: #11111a; color: var(--text); border: 1px solid rgba(139, 92, 255, 0.35); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55); }
+html.obsidian .arc__item[aria-current='page'], html.obsidian .arc__item--create { background: linear-gradient(135deg, #7c3aed, #a78bfa); border-color: transparent; color: #fff; }
+html.obsidian .arc__dot { background: #a78bfa; border-color: #11111a; }
+html.obsidian .arc__scrim { background: rgba(8, 8, 12, 0.78); }
+html.obsidian .post { border-bottom: 1px solid var(--glass-edge); }
+html.obsidian .post__media img { background-color: #151520; }
+html.obsidian .bottom-nav, html.obsidian .glass.bottom-nav { background: rgba(12, 12, 18, 0.94); border-top: 1px solid var(--glass-edge); }
+html.obsidian .nav-item[aria-current='page'] { color: #b08cff; }
+html.obsidian .mtile { background: #11111a; }
+html.obsidian .badge, html.obsidian .arc__badge { background: #8b5cff; color: #fff; }
+html.obsidian a { color: #b8a0ff; }

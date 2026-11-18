@@ -69,12 +69,7 @@ Emoji are rendered as images (Twemoji SVG) instead of the device font, so they l
 in posts, comments, chat bubbles, reactions and the picker. Emoji-only messages are shown larger. If an image fails to load, the native glyph is shown instead.
 Inside the text box the browser itself draws emoji, because a `<textarea>` cannot contain images; they switch to the custom images as soon as they are posted.
 
-By default the images come from a public CDN. To self-host (recommended for production, and for offline use):
-
-```bash
-npm run emoji:vendor              # downloads the picker's emoji into public/emoji/ (needs internet)
-echo 'VITE_EMOJI_BASE_URL=/emoji/' >> .env
-```
+The images come from a public Twemoji CDN (override with `VITE_EMOJI_BASE_URL`).
 
 Twemoji graphics are licensed CC‑BY 4.0; keep the attribution if you ship them.
 
@@ -116,7 +111,7 @@ production build served over HTTPS or on localhost). The structure is compatible
 Chrome only offers "Install app" over **HTTPS** (a LAN address like `http://192.168.x.x:5173` only gives a plain shortcut).
 
 1. Fill `.env` (see above), then `npm run build`. The `VITE_` values are baked in at build time.
-2. Host the `dist/` folder on any static HTTPS host (this project uses GitHub Pages, see `.github/workflows/pages.yml`, which copies `index.html` to `404.html` so deep links such as `/login` survive a refresh). `vercel.json` does the same for Vercel.
+2. Host the `dist/` folder on any static HTTPS host (this project uses GitHub Pages, see `.github/workflows/pages.yml`, which copies `index.html` to `404.html` so deep links such as `/login` survive a refresh).
 3. In Supabase → Authentication → URL Configuration, set **Site URL** and add `https://YOUR-SITE/auth/callback` to **Redirect URLs**, or confirmation and reset e-mails will point to the wrong address.
 4. Open the HTTPS link in Chrome on Android → ⋮ menu → **Install app** (or "Add to Home screen").
 

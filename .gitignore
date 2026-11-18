@@ -5,3 +5,12 @@ dist
 !.env.example
 *.local
 .DS_Store
+
+# secrets / signing material: never commit
+*.keystore
+*.jks
+*.pem
+*.p12
+google-services.json
+service-account*.json
+*-service-account*.json

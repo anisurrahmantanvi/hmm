@@ -70,10 +70,31 @@ Deno.serve(async (req) => {
   if (qerr) return json(500, { error: 'quota' })
   if (ok !== true) return json(429, { error: 'limit', limit: DAILY_LIMIT })
 
-  const model = Deno.env.get('GEMINI_MODEL') || 'gemini-2.5-flash'
-  let res = await gemini(model, key, msgs)
-  if (res.status === 404 && model !== 'gemini-flash-latest') res = await gemini('gemini-flash-latest', key, msgs)
-  if (!res.ok) return json(res.status === 429 ? 429 : 502, { error: res.status === 429 ? 'busy' : 'upstream' })
+  // Try the configured model, then a "latest" alias, then whatever Flash model this key can use.
+  const wanted = Deno.env.get('GEMINI_MODEL') || 'gemini-2.5-flash'
+  let res = await gemini(wanted, key, msgs)
+  if (!res.ok && res.status !== 429) {
+    console.error('gemini', wanted, res.status, (await res.text()).slice(0, 300))
+    res = await gemini('gemini-flash-latest', key, msgs)
+    if (!res.ok && res.status !== 429) {
+      console.error('gemini gemini-flash-latest', res.status, (await res.text()).slice(0, 300))
+      const list = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=100', { headers: { 'x-goog-api-key': key } })
+      if (list.ok) {
+        const models = ((await list.json()) as { models?: { name: string; supportedGenerationMethods?: string[] }[] }).models ?? []
+        const pick = models.find((m) => /flash/i.test(m.name) && !/lite|image|tts|live|thinking/i.test(m.name) && m.supportedGenerationMethods?.includes('generateContent'))
+        if (pick) {
+          console.error('gemini fallback model', pick.name)
+          res = await gemini(pick.name.replace(/^models\//, ''), key, msgs)
+        }
+      } else {
+        console.error('gemini list', list.status, (await list.text()).slice(0, 300))
+      }
+    }
+  }
+  if (!res.ok) {
+    console.error('gemini final', res.status, (await res.text()).slice(0, 300))
+    return json(res.status === 429 ? 429 : 502, { error: res.status === 429 ? 'busy' : 'upstream', status: res.status })
+  }
 
   const data = await res.json() as { candidates?: { content?: { parts?: { text?: string }[] }; finishReason?: string }[]; promptFeedback?: { blockReason?: string } }
   const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('').trim()

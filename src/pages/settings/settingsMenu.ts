@@ -19,7 +19,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     title: 'Settings',
     items: [
       { title: 'Account Center', to: '/settings/account' },
-      { title: 'Audience Settings' },
+      { title: 'Audience Settings', to: '/settings/privacy' },
     ],
   },
   {
@@ -33,9 +33,9 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Audience & Visibility',
     items: [
-      { title: 'Profile Lock' },
+      { title: 'Profile Lock', to: '/settings/privacy' },
       { title: 'Profile Details', to: '/settings/profile' },
-      { title: 'How People Find and Contact You' },
+      { title: 'How People Find and Contact You', to: '/settings/privacy' },
       { title: 'Posts' },
       { title: 'Stories' },
       { title: 'Profile and Tagging' },
@@ -92,12 +92,12 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Privacy Center',
     items: [
-      { title: 'Privacy Checkup' },
+      { title: 'Privacy Checkup', to: '/settings/privacy' },
       { title: 'Profile Visibility', to: '/settings/privacy' },
       { title: 'Private Account', to: '/settings/privacy' },
       { title: 'Blocked Users', to: '/settings/blocked' },
       { title: 'Restricted Users' },
-      { title: 'Who Can See My Content' },
+      { title: 'Who Can See My Content', to: '/settings/privacy' },
       { title: 'Manage Personal Information', to: '/settings/your-data' },
     ],
   },
@@ -105,8 +105,8 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     title: 'Login & Devices',
     items: [
       { title: 'Logged-in Devices', to: '/settings/privacy' },
-      { title: 'Device History' },
-      { title: 'Logout From All Devices' },
+      { title: 'Device History', to: '/settings/devices' },
+      { title: 'Logout From All Devices', to: '/settings/devices' },
       { title: 'Suspicious Login Alerts', to: '/settings/security-alerts' },
       { title: 'Login Notifications', to: '/settings/security-alerts' },
       { title: 'Manage Active Sessions', to: '/settings/devices' },
@@ -235,11 +235,11 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Hidden Words',
     items: [
-      { title: 'Filter Offensive Words' },
+      { title: 'Filter Offensive Words', to: '/settings/hidden-words' },
       { title: 'Custom Hidden Words', to: '/settings/hidden-words' },
       { title: 'Comment Filtering', to: '/settings/hidden-words' },
-      { title: 'Message Request Filtering' },
-      { title: 'Spam Keyword Filtering' },
+      { title: 'Message Request Filtering', to: '/settings/hidden-words' },
+      { title: 'Spam Keyword Filtering', to: '/settings/hidden-words' },
     ],
   },
   {
@@ -247,7 +247,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     items: [
       { title: 'Parental Supervision' },
       { title: 'Screen Time Information' },
-      { title: 'Privacy Guidance' },
+      { title: 'Privacy Guidance', to: '/settings/help' },
       { title: 'Restricted Content Settings' },
       { title: 'Supervision Management' },
     ],
@@ -302,7 +302,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { title: 'HD Video Upload' },
       { title: 'Original Quality Upload' },
       { title: 'Automatic Video Compression' },
-      { title: 'Media Storage Management' },
+      { title: 'Media Storage Management', to: '/settings/media' },
       { title: 'Upload Preferences' },
     ],
   },
@@ -334,7 +334,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { title: 'Daily Usage Information', to: '/settings/wellbeing' },
       { title: 'Screen Time Reminder', to: '/settings/wellbeing' },
       { title: 'Break Reminders', to: '/settings/wellbeing' },
-      { title: 'Quiet Hours' },
+      { title: 'Quiet Hours', to: '/settings/notification-prefs' },
       { title: 'Notification Summary' },
     ],
   },
@@ -343,7 +343,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     items: [
       { title: 'Sensitive Content Controls' },
       { title: 'Spam Protection' },
-      { title: 'Offensive Content Filtering' },
+      { title: 'Offensive Content Filtering', to: '/settings/hidden-words' },
       { title: 'Reported Content History' },
       { title: 'Community Safety Preferences' },
     ],
@@ -355,7 +355,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { title: 'Two-Factor Authentication', to: '/settings/two-factor' },
       { title: 'Trusted Devices', to: '/settings/devices' },
       { title: 'Security Alerts', to: '/settings/security-alerts' },
-      { title: 'Recovery Email and Phone' },
+      { title: 'Recovery Email and Phone', to: '/settings/change-email' },
       { title: 'Account Recovery' },
     ],
   },

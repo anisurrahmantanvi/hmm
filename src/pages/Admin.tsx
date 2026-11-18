@@ -8,6 +8,7 @@ import { useAsync, useDebounce } from '@/hooks/common'
 import { useToast } from '@/components/ui/Toast'
 import { timeAgo } from '@/lib/format'
 import { errorMessage } from '@/lib/supabase'
+import { adsAvailable, setTestAds, testAdsOn } from '@/lib/ads'
 import { adminDeleteContent, adminReports, adminSetReport, adminStats, adminUsers, isAppAdmin, type AdminReport } from '@/services/admin'
 
 type Tab = 'overview' | 'reports' | 'users'
@@ -15,6 +16,21 @@ type Tab = 'overview' | 'reports' | 'users'
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="admin-stat"><strong>{value.toLocaleString()}</strong><span>{label}</span></div>
+  )
+}
+
+function TestAds() {
+  const [on, setOn] = useState(testAdsOn)
+  const native = adsAvailable()
+  return (
+    <GlassPanel padded className="admin-report">
+      <strong>Test ads (Google demo)</strong>
+      <p className="small muted" style={{ margin: 0 }}>
+        Shows Google's demo banner at the bottom, only on this phone and only in the Android app. These are fake ads for testing: they earn nothing and other people never see them.
+        {native ? '' : ' Not available here: open the Android app.'}
+      </p>
+      <Button variant={on ? 'primary' : 'glass'} disabled={!native} onClick={() => { const v = !on; setOn(v); void setTestAds(v) }}>{on ? 'Turn off test ads' : 'Turn on test ads'}</Button>
+    </GlassPanel>
   )
 }
 
@@ -113,7 +129,7 @@ export default function AdminPage() {
             <button key={t} type="button" className={`chip ${tab === t ? 'chip--active' : ''}`} aria-pressed={tab === t} onClick={() => setTab(t)}>{t}</button>
           ))}
         </div>
-        {tab === 'overview' ? <Overview /> : tab === 'reports' ? <Reports /> : <Users />}
+        {tab === 'overview' ? <><Overview /><TestAds /></> : tab === 'reports' ? <Reports /> : <Users />}
       </div>
     </>
   )

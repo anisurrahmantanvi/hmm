@@ -8,6 +8,7 @@ import { Bell, Bookmark, Clapperboard, Compass, Home, MessageCircle, Plus, Setti
 import { Logo } from '@/components/ui/Logo'
 import { LayoutChooser } from '@/components/layout/LayoutChooser'
 import { useDisplayPrefs } from '@/lib/displayPrefs'
+import { showTestBanner, testAdsOn } from '@/lib/ads'
 import { ArcNav } from '@/components/layout/ArcNav'
 import { useAuth } from '@/app/AuthProvider'
 import { useBadges } from '@/app/BadgesProvider'
@@ -52,6 +53,7 @@ export function AppShell() {
   const { t } = useT()
   const { layout } = useDisplayPrefs()
   const arc = layout === 'arc'
+  useEffect(() => { if (testAdsOn()) void showTestBanner() }, [])
   const { profile } = useAuth()
   const badges = useBadges()
   const online = useOnline()

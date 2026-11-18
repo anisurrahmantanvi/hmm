@@ -14,6 +14,7 @@ const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPassword'))
 const OnboardingPage = lazy(() => import('@/pages/auth/Onboarding'))
 
 const HomePage = lazy(() => import('@/pages/Home'))
+const AiChatPage = lazy(() => import('@/pages/AiChat'))
 const DiscoverPage = lazy(() => import('@/pages/Discover'))
 const CreatePage = lazy(() => import('@/pages/Create'))
 const PostDetailPage = lazy(() => import('@/pages/PostDetail'))
@@ -149,6 +150,7 @@ export function App() {
                 <Route path="/report/:targetType/:targetId" element={<ReportPage />} />
 
                 <Route path="/menu" element={<MenuPage />} />
+                <Route path="/ai" element={<AiChatPage />} />
                 <Route path="/pages" element={<PagesHomePage />} />
                 <Route path="/pages/new" element={<PageFormPage mode="create" />} />
                 <Route path="/page/:slug" element={<PageViewPage />} />

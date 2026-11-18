@@ -29,6 +29,7 @@ public class MainActivity extends BridgeActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     registerPlugin(CallKeeperPlugin.class);
+    registerPlugin(InAppBrowserPlugin.class);
     if (getIntent() != null && getIntent().getBooleanExtra("fromCall", false)) {
       if (Build.VERSION.SDK_INT >= 27) { setShowWhenLocked(true); setTurnScreenOn(true); }
     }

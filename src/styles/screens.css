@@ -421,3 +421,9 @@ html.has-callbar .page-header { top: calc(40px + var(--safe-top)); }
 .admin-search { width: 100%; min-height: 44px; padding: 0 14px; border-radius: 14px; border: 1px solid var(--glass-edge); background: var(--field); color: inherit; font: inherit; margin-bottom: 10px; }
 .admin-report { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
 .admin-report__target { margin: 0; padding: 8px 10px; border-radius: 10px; background: var(--field); overflow-wrap: anywhere; }
+
+/* All in one */
+.aio-title { margin: 14px 0 8px; font-size: 15px; letter-spacing: -0.01em; color: var(--text-muted); text-transform: uppercase; }
+.aio-ext { width: 100%; text-align: left; font: inherit; cursor: pointer; }
+.aio-host { font-size: 11px; color: var(--text-faint); }
+.aio-note { margin-top: 12px; }

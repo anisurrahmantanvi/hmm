@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Bell, Bookmark, ChevronDown, ChevronRight, Check, ShieldCheck, Crown, Repeat, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
+import { Bell, Bookmark, ChevronDown, ChevronRight, Check, LayoutGrid, ShieldCheck, Crown, Repeat, Compass, Film, Flag, HelpCircle, LogOut, MessageCircle, Pencil, Settings, ShoppingBag, SquarePlus, Users } from 'lucide-react'
 import { useToast } from '@/components/ui/Toast'
 import { useAsync } from '@/hooks/common'
 import { listMyPages } from '@/services/pages'
@@ -118,6 +118,12 @@ export default function MenuPage() {
           <Tile to={acting ? `/create?page=${acting.slug}` : '/create'} icon={<SquarePlus size={24} />} label={"Create"} hint="Share something new" c1="#0a84ff" c2="#2563eb" />
           <Tile to={acting ? `/page/${acting.slug}/settings` : '/settings/profile'} icon={<Pencil size={24} />} label={acting ? 'Page settings' : tx('Edit profile')} hint={acting ? 'Update your Page' : 'Update your profile'} c1="#8b5cf6" c2="#6d4af0" />
         </div>
+
+        <Link to="/services" className="mtile">
+          <span className="mtile__icon" style={{ background: 'linear-gradient(135deg, #0a84ff, #7c3aed)' }}><LayoutGrid size={24} /></span>
+          <span className="mtile__text"><strong>All in one</strong><span>Train, bus, air &amp; government services</span></span>
+          <ChevronRight size={18} className="mtile__chev" aria-hidden />
+        </Link>
 
         {admin.data ? (
           <Link to="/admin" className="mtile">

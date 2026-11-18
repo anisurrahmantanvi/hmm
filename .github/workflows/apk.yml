@@ -36,7 +36,7 @@ jobs:
           {"appId":"com.iconnecto.app","appName":"iConnecto","webDir":"dist","server":{"url":"${{ inputs.site_url }}","androidScheme":"https"}}
           JSON
           npx cap add android
-          cp mobile/MainActivity.java mobile/CallService.java mobile/CallKeeperPlugin.java mobile/CallRinger.java mobile/AppMessagingService.java android/app/src/main/java/com/iconnecto/app/
+          cp mobile/MainActivity.java mobile/CallService.java mobile/CallKeeperPlugin.java mobile/InAppBrowserPlugin.java mobile/CallRinger.java mobile/AppMessagingService.java android/app/src/main/java/com/iconnecto/app/
           python3 - <<'PY'
           p='android/app/src/main/AndroidManifest.xml'
           s=open(p).read()
@@ -54,7 +54,7 @@ jobs:
           python3 - <<'PY2'
           p='android/app/build.gradle'
           s=open(p).read()
-          s=s.replace('dependencies {',"dependencies {\n    implementation 'com.google.firebase:firebase-messaging:23.4.1'",1)
+          s=s.replace('dependencies {',"dependencies {\n    implementation 'com.google.firebase:firebase-messaging:23.4.1'\n    implementation 'androidx.browser:browser:1.8.0'",1)
           open(p,'w').write(s)
           PY2
           mkdir -p assets && cp design/logo-source.png assets/icon-only.png && cp design/logo-source.png assets/icon-foreground.png

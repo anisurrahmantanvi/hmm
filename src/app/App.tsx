@@ -16,6 +16,7 @@ const OnboardingPage = lazy(() => import('@/pages/auth/Onboarding'))
 const HomePage = lazy(() => import('@/pages/Home'))
 const AiChatPage = lazy(() => import('@/pages/AiChat'))
 const AdminPage = lazy(() => import('@/pages/Admin'))
+const AllInOnePage = lazy(() => import('@/pages/AllInOne'))
 const DiscoverPage = lazy(() => import('@/pages/Discover'))
 const CreatePage = lazy(() => import('@/pages/Create'))
 const PostDetailPage = lazy(() => import('@/pages/PostDetail'))
@@ -153,6 +154,7 @@ export function App() {
                 <Route path="/menu" element={<MenuPage />} />
                 <Route path="/ai" element={<AiChatPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/services" element={<AllInOnePage />} />
                 <Route path="/pages" element={<PagesHomePage />} />
                 <Route path="/pages/new" element={<PageFormPage mode="create" />} />
                 <Route path="/page/:slug" element={<PageViewPage />} />

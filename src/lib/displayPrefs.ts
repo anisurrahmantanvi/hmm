@@ -15,7 +15,7 @@ export interface DisplayPrefs {
   look: 'obsidian' | 'mono'
 }
 const KEY = 'iconnecto.displayPrefs'
-export const DEFAULTS: DisplayPrefs = { fontSize: 'normal', reducedMotion: false, highContrast: false, dataSaver: false, reelsAutoplay: true, minimal: true, layout: null, look: 'obsidian' }
+export const DEFAULTS: DisplayPrefs = { fontSize: 'normal', reducedMotion: false, highContrast: false, dataSaver: false, reelsAutoplay: true, minimal: true, layout: null, look: 'mono' }
 const SCALE = { small: 0.92, normal: 1, large: 1.12, xlarge: 1.25 }
 
 export function getDisplayPrefs(): DisplayPrefs {

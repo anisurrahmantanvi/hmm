@@ -19,6 +19,8 @@ const AdminPage = lazy(() => import('@/pages/Admin'))
 const AllInOnePage = lazy(() => import('@/pages/AllInOne'))
 const DiscoverPage = lazy(() => import('@/pages/Discover'))
 const CreatePage = lazy(() => import('@/pages/Create'))
+const StoryCreatePage = lazy(() => import('@/pages/stories/StoryCreate'))
+const StoryViewerPage = lazy(() => import('@/pages/stories/StoryViewer'))
 const PostDetailPage = lazy(() => import('@/pages/PostDetail'))
 const ProfilePage = lazy(() => import('@/pages/Profile'))
 const FollowListPage = lazy(() => import('@/pages/FollowList'))
@@ -121,6 +123,8 @@ export function App() {
                 <Route index element={<HomePage />} />
                 <Route path="/discover" element={<DiscoverPage />} />
                 <Route path="/create" element={<CreatePage />} />
+                <Route path="/stories/new" element={<StoryCreatePage />} />
+                <Route path="/stories/:userId" element={<StoryViewerPage />} />
                 <Route path="/p/:postId" element={<PostDetailPage />} />
                 <Route path="/saved" element={<SavedPage />} />
                 <Route path="/notifications" element={<NotificationsPage />} />

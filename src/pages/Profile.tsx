@@ -208,7 +208,7 @@ export default function ProfilePage() {
           onMessage={() => void message()}
           messaging={messaging}
           menu={isMe ? [] : menu}
-          onAddStory={isMe ? () => toast.show('Stories are coming soon') : undefined}
+          onAddStory={isMe ? () => navigate('/stories/new') : undefined}
         />
 
         {style.music_url ? <ProfileMusic url={style.music_url} title={style.music_title} /> : null}

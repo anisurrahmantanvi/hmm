@@ -76,6 +76,9 @@ const PageSettingsPage = lazy(() => import('@/pages/pages/PageSettings'))
 const PagePolicyPage = lazy(() => import('@/pages/pages/PagePolicy'))
 const DisplayPrefsPage = lazy(() => import('@/pages/settings/DisplayPrefsPage'))
 const MarketHomePage = lazy(() => import('@/pages/market/MarketHome'))
+const MarketSellPage = lazy(() => import('@/pages/market/MarketSell'))
+const MarketListingPage = lazy(() => import('@/pages/market/MarketListing'))
+const MarketMinePage = lazy(() => import('@/pages/market/MarketMine'))
 const TwoFactorPage = lazy(() => import('@/pages/settings/TwoFactor'))
 const TrustedDevicesPage = lazy(() => import('@/pages/settings/TrustedDevices'))
 const SecurityAlertsPage = lazy(() => import('@/pages/settings/SecurityAlerts'))
@@ -191,6 +194,9 @@ export function App() {
                 <Route path="/settings/support/feature" element={<FeedbackPage kind="feature" />} />
                 <Route path="/settings/support/contact" element={<FeedbackPage kind="support" />} />
                 <Route path="/market" element={<MarketHomePage />} />
+                <Route path="/market/sell" element={<MarketSellPage />} />
+                <Route path="/market/mine" element={<MarketMinePage />} />
+                <Route path="/market/:id" element={<MarketListingPage />} />
                 <Route path="/settings" element={<SettingsHomePage />} />
                 <Route path="/settings/section/:slug" element={<SettingsSectionPage />} />
                 <Route path="/settings/profile" element={<EditProfilePage />} />

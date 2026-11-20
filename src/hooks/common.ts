@@ -41,22 +41,26 @@ export interface PagedState<T> {
  * Cursor-paginated list loader. `fetchPage` must be stable (wrap in useCallback); when it changes the list reloads.
  * Stale responses from an older fetchPage are ignored.
  */
-export function usePaged<T>(fetchPage: (cursor: string | null) => Promise<Page<T>>, enabled = true): PagedState<T> {
-  const [items, setItemsState] = useState<T[]>([])
-  const [loading, setLoading] = useState(enabled)
+/** `initial` = items to show at once while the first page loads (stale-while-revalidate); they are replaced when it arrives. */
+export function usePaged<T>(fetchPage: (cursor: string | null) => Promise<Page<T>>, enabled = true, initial?: T[]): PagedState<T> {
+  const [items, setItemsState] = useState<T[]>(initial ?? [])
+  const [loading, setLoading] = useState(enabled && !initial?.length)
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [cursor, setCursor] = useState<string | null>(null)
   const [hasMore, setHasMore] = useState(false)
   const generation = useRef(0)
   const busy = useRef(false)
+  const itemsRef = useRef<T[]>(items)
+  const keepStale = useRef(!!initial?.length)
+  itemsRef.current = items
 
   const run = useCallback(
     async (reset: boolean, from: string | null) => {
       const gen = reset ? ++generation.current : generation.current
       busy.current = true
-      if (reset) setLoading(true)
-      else setLoadingMore(true)
+      if (reset && !(keepStale.current && itemsRef.current.length)) setLoading(true)
+      else if (!reset) setLoadingMore(true)
       setError(null)
       try {
         const page = await fetchPage(from)

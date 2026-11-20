@@ -1,4 +1,4 @@
-import { useCallback, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, type ReactNode } from 'react'
 import { fetchFavoritePosts } from '@/services/favorites'
 import { getFeedFilters } from '@/services/feedPrefs'
 import type { Page, PostView } from '@/types/db'
@@ -68,7 +68,17 @@ export function PostFeed({ source, empty, refreshKey = 0, canModerate = false, r
     [key, me.id, refreshKey],
   )
 
-  const { items, loading, loadingMore, error, hasMore, loadMore, reload, setItems } = usePaged<PostView>(fetchPage)
+  // The home feed keeps its first page on this phone, so it shows at once next time and refreshes behind the scenes.
+  const cacheKey = source.kind === 'home' ? `iconnecto.feedCache.${me.id}` : null
+  const initial = useMemo<PostView[] | undefined>(() => {
+    if (!cacheKey) return undefined
+    try { const v = JSON.parse(localStorage.getItem(cacheKey) || 'null') as PostView[] | null; return Array.isArray(v) && v.length ? v : undefined } catch { return undefined }
+  }, [cacheKey])
+  const { items, loading, loadingMore, error, hasMore, loadMore, reload, setItems } = usePaged<PostView>(fetchPage, true, initial)
+  useEffect(() => {
+    if (!cacheKey || loading || error || !items.length) return
+    try { localStorage.setItem(cacheKey, JSON.stringify(items.slice(0, 12))) } catch { /* ignore */ }
+  }, [cacheKey, loading, error, items])
   const sentinel = useInfiniteSentinel(loadMore, hasMore && !loadingMore && !error)
 
   const onChange = useCallback(

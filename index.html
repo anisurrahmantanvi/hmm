@@ -20,13 +20,27 @@
         var t = localStorage.getItem('iconnecto-theme')
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
       } catch (e) {}
+      // Same for the layout/colour style and the first-paint background, so opening the app never flashes a different colour.
+      try {
+        var d = {}
+        try { d = JSON.parse(localStorage.getItem('iconnecto.displayPrefs') || '{}') } catch (e) {}
+        var h = document.documentElement
+        if (d.minimal !== false) h.classList.add('minimal')
+        if (d.layout === 'arc') h.classList.add('arc')
+        if (d.look === 'obsidian') h.classList.add('obsidian')
+        var th = h.dataset.theme
+        var dark = th === 'dark' || (!th && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        var arc = d.layout === 'arc'
+        h.style.background = dark ? (arc ? '#09090a' : '#0c0c0f') : (arc ? '#f4f4f5' : '#ffffff')
+        h.style.colorScheme = dark ? 'dark' : 'light'
+      } catch (e) {}
     </script>
     <script>
       // Last-resort safety net: if the app crashes before React can show anything, never leave a blank page.
       (function () {
         function show(msg) {
           var r = document.getElementById('root')
-          if (!r || r.childNodes.length) return
+          if (!r || (r.childNodes.length && !r.querySelector('#boot'))) return
           r.innerHTML =
             '<div style="font-family:system-ui,sans-serif;padding:24px;max-width:520px;margin:0 auto;line-height:1.5">' +
             '<h2>iConnecto could not start</h2><p>Please reload the page. If it keeps happening, send this text to the developer:</p>' +
@@ -40,7 +54,18 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Shown the instant the page opens; React replaces it as soon as the app is ready. -->
+      <div id="boot" aria-hidden="true"><span></span></div>
+      <style>
+        #boot { position: fixed; inset: 0; display: grid; place-items: center; }
+        #boot span { width: 44px; height: 44px; border-radius: 50%; border: 3px solid currentColor; border-top-color: transparent; opacity: .35; animation: boot-spin .9s linear infinite; }
+        html:not([data-theme='dark']) #boot { color: #0b0b0c; }
+        html[data-theme='dark'] #boot { color: #f4f4f5; }
+        @media (prefers-color-scheme: dark) { html:not([data-theme='light']):not([data-theme='dark']) #boot { color: #f4f4f5; } }
+        @keyframes boot-spin { to { transform: rotate(360deg); } }
+      </style>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

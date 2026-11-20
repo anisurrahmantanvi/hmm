@@ -37,6 +37,24 @@ const AuthContext = createContext<AuthApi | null>(null)
 
 const callbackUrl = () => appUrl('/auth/callback')
 
+const PROFILE_CACHE = 'iconnecto.profileCache'
+function readCachedProfile(userId: string): Profile | null {
+  try {
+    const p = JSON.parse(localStorage.getItem(PROFILE_CACHE) || 'null') as Profile | null
+    return p && p.id === userId ? p : null
+  } catch { return null }
+}
+function writeCachedProfile(p: Profile): void {
+  try { localStorage.setItem(PROFILE_CACHE, JSON.stringify(p)) } catch { /* storage full or blocked: fine */ }
+}
+/** Signing out removes what was kept on this phone for quick opening (profile and first feed page). */
+function clearLocalCaches(): void {
+  try {
+    localStorage.removeItem(PROFILE_CACHE)
+    for (const k of Object.keys(localStorage)) if (k.startsWith('iconnecto.feedCache.')) localStorage.removeItem(k)
+  } catch { /* ignore */ }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
@@ -59,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(next)
       if (event === 'PASSWORD_RECOVERY') setRecovering(true)
       if (event === 'SIGNED_OUT') {
+        clearLocalCaches()
         setProfile(null)
         setRecovering(false)
       }
@@ -80,8 +99,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     let cancelled = false
     setProfileError(null)
+    // Show the last known profile at once (so opening the app does not wait for the network), then refresh it.
+    const cached = readCachedProfile(userId)
+    if (cached) setProfile((cur) => cur ?? cached)
     loadOrCreateMyProfile(userId)
-      .then((p) => !cancelled && setProfile(p))
+      .then((p) => { if (cancelled) return; setProfile(p); writeCachedProfile(p) })
       .catch((e) => !cancelled && setProfileError(errorMessage(e, 'Could not load your profile.')))
     return () => {
       cancelled = true

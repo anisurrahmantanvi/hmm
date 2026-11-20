@@ -163,12 +163,12 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Creator Tools',
     items: [
-      { title: 'Professional Dashboard' },
-      { title: 'Creator Insights' },
+      { title: 'Professional Dashboard', to: '/settings/insights' },
+      { title: 'Creator Insights', to: '/settings/insights' },
       { title: 'Audience Analytics' },
       { title: 'Creator Profile' },
       { title: 'Monetization (when available)' },
-      { title: 'Content Performance' },
+      { title: 'Content Performance', to: '/settings/insights' },
       { title: 'Follower Growth' },
       { title: 'Earnings Dashboard (when available)' },
     ],

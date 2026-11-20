@@ -81,11 +81,6 @@ export default function SettingsSectionPage() {
           </GlassPanel>
         ) : null}
       </div>
-              ))}
-            </GlassPanel>
-          </>
-        ) : null}
-      </div>
     </>
   )
 }

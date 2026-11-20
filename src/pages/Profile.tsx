@@ -19,6 +19,7 @@ import { errorMessage } from '@/lib/supabase'
 import { getOrCreateDm } from '@/services/chat'
 import { countFriends, getFriendState, type FriendState } from '@/services/friends'
 import { getIsPrivate } from '@/services/privateAccount'
+import { isRestricted, restrictUser, unrestrictUser } from '@/services/restrict'
 import { blockUser, isBlockedByMe, unblockUser } from '@/services/moderation'
 import { ProfileMusic } from '@/components/profile/ProfileMusic'
 import { THEMES } from '@/lib/profileThemes'
@@ -57,6 +58,7 @@ export default function ProfilePage() {
   const [friendsCount, setFriendsCount] = useState<number | null>(null)
   const [isPrivate, setIsPrivate] = useState(false)
   const [blocked, setBlocked] = useState(false)
+  const [restricted, setRestricted] = useState(false)
   const [messaging, setMessaging] = useState(false)
   const [confirmBlock, setConfirmBlock] = useState(false)
   const [confirmLogout, setConfirmLogout] = useState(false)
@@ -125,6 +127,24 @@ export default function ProfilePage() {
     }
   }
 
+  const toggleRestrict = async () => {
+    if (!profile) return
+    try {
+      if (restricted) await unrestrictUser(me.id, profile.id)
+      else await restrictUser(profile.id)
+      setRestricted(!restricted)
+      toast.show(restricted ? `Unrestricted @${profile.username}` : `Restricted @${profile.username}`)
+    } catch (e) {
+      toast.error(errorMessage(e))
+    }
+  }
+  useEffect(() => {
+    if (!profile || profile.id === me.id) return
+    let off = false
+    void isRestricted(me.id, profile.id).then((r) => !off && setRestricted(r)).catch(() => undefined)
+    return () => { off = true }
+  }, [profile?.id, me.id]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const unblock = async () => {
     if (!profile) return
     try {
@@ -149,6 +169,7 @@ export default function ProfilePage() {
           blocked
             ? { label: 'Unblock', icon: <UserX size={18} />, onSelect: () => void unblock() }
             : { label: 'Block', icon: <Ban size={18} />, danger: true, onSelect: () => setConfirmBlock(true) },
+          { label: restricted ? 'Unrestrict' : 'Restrict', icon: <UserX size={18} />, hidden: blocked, onSelect: () => void toggleRestrict() },
           { label: 'Report', icon: <Flag size={18} />, danger: true, onSelect: () => navigate(`/report/user/${profile.id}`) },
         ]
     : []

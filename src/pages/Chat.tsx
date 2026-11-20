@@ -1,7 +1,7 @@
 import { PeerBadge } from '@/components/ui/PeerBadge'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { AlertCircle, Archive, ArrowLeft, Flag, MessageCircle, Phone, PhoneMissed, Send, UserRound, Video, WifiOff, X } from 'lucide-react'
+import { AlertCircle, Archive, ArrowLeft, Flag, MessageCircle, Phone, PhoneMissed, Send, Timer, UserRound, Video, WifiOff, X } from 'lucide-react'
 import type { Message, MessageReaction } from '@/types/db'
 import { useMe } from '@/app/AuthProvider'
 import { useBadges } from '@/app/BadgesProvider'
@@ -319,6 +319,7 @@ export default function ChatPage() {
         setArchived(chatId, true).then(() => { toast.show('Chat archived'); navigate('/messages') }, (e) => toast.error(errorMessage(e)))
       },
     },
+    { label: 'Disappearing messages', icon: <Timer size={18} />, onSelect: () => navigate(`/messages/${chatId}/disappearing`) },
     { label: 'Report', icon: <Flag size={18} />, danger: true, onSelect: () => navigate(`/report/user/${peer.other_id}`) },
   ]
 

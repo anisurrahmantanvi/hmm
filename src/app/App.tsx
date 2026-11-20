@@ -21,6 +21,8 @@ const DiscoverPage = lazy(() => import('@/pages/Discover'))
 const CreatePage = lazy(() => import('@/pages/Create'))
 const CreatorInsightsPage = lazy(() => import('@/pages/settings/CreatorInsights'))
 const CloseFriendsPage = lazy(() => import('@/pages/settings/CloseFriends'))
+const RestrictedPage = lazy(() => import('@/pages/settings/Restricted'))
+const ChatDisappearingPage = lazy(() => import('@/pages/ChatDisappearing'))
 const StoryCreatePage = lazy(() => import('@/pages/stories/StoryCreate'))
 const StoryViewerPage = lazy(() => import('@/pages/stories/StoryViewer'))
 const PostDetailPage = lazy(() => import('@/pages/PostDetail'))
@@ -130,6 +132,8 @@ export function App() {
                 <Route path="/create" element={<CreatePage />} />
                 <Route path="/settings/insights" element={<CreatorInsightsPage />} />
                 <Route path="/settings/close-friends" element={<CloseFriendsPage />} />
+                <Route path="/settings/restricted" element={<RestrictedPage />} />
+                <Route path="/messages/:chatId/disappearing" element={<ChatDisappearingPage />} />
                 <Route path="/stories/new" element={<StoryCreatePage />} />
                 <Route path="/stories/:userId" element={<StoryViewerPage />} />
                 <Route path="/p/:postId" element={<PostDetailPage />} />

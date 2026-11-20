@@ -66,7 +66,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { title: 'Two-Factor Authentication', to: '/settings/two-factor' },
       { title: 'Login Activity', to: '/settings/privacy' },
       { title: 'Blocked Accounts', to: '/settings/blocked' },
-      { title: 'Restricted Accounts' },
+      { title: 'Restricted Accounts', to: '/settings/restricted' },
     ],
   },
   {
@@ -96,7 +96,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { title: 'Profile Visibility', to: '/settings/privacy' },
       { title: 'Private Account', to: '/settings/privacy' },
       { title: 'Blocked Users', to: '/settings/blocked' },
-      { title: 'Restricted Users' },
+      { title: 'Restricted Users', to: '/settings/restricted' },
       { title: 'Who Can See My Content', to: '/settings/privacy' },
       { title: 'Manage Personal Information', to: '/settings/your-data' },
     ],
@@ -322,7 +322,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
     items: [
       { title: 'Chat Themes', to: '/message-settings/themes' },
       { title: 'Custom Chat Wallpaper', to: '/message-settings/wallpaper' },
-      { title: 'Disappearing Messages' },
+      { title: 'Disappearing Messages', to: '/messages' },
       { title: 'Message Privacy', to: '/message-settings/privacy' },
       { title: 'Chat Backup' },
       { title: 'Manage Archived Chats', to: '/message-settings/archived' },

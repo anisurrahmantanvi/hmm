@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronRight, MailCheck, MailWarning, Trash2 } from 'lucide-react'
+import { MailCheck, MailWarning, Trash2 } from 'lucide-react'
 import { useAuth, useMe } from '@/app/AuthProvider'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
@@ -91,11 +91,11 @@ export default function AccountPage() {
 
         <h2 className="section-title">Account Memorialization</h2>
         <GlassPanel className="settings-list" as="nav" aria-label="Account Memorialization">
-          {(SETTINGS_SECTIONS.find((x) => x.title === 'Account Memorialization')?.items ?? []).map((it) => (
-            <button key={it.title} type="button" className="list-row" onClick={() => toast.show('Coming soon')} style={{ width: '100%', textAlign: 'left' }}>
-              <strong className="grow">{it.title}</strong>
-              <ChevronRight size={18} className="chev" aria-hidden />
-            </button>
+          {(SETTINGS_SECTIONS.find((x) => x.title === 'Account Memorialization')?.soon ?? []).map((title) => (
+            <div key={title} className="list-row" aria-disabled="true" style={{ opacity: 0.6 }}>
+              <span className="grow">{title}</span>
+              <span className="small muted">Coming soon</span>
+            </div>
           ))}
         </GlassPanel>
 

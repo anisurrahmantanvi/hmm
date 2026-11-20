@@ -12,9 +12,11 @@ export interface SettingsSection {
   title: string
   inline?: 'language' | 'themes' | 'push'
   items: SettingsItem[]
+  /** Items that are not available yet. Shown separately, so working settings are not mixed with them. */
+  soon?: string[]
 }
 
-export const SETTINGS_SECTIONS: SettingsSection[] = [
+const RAW_SECTIONS: SettingsSection[] = [
   {
     title: 'Settings',
     items: [
@@ -374,3 +376,41 @@ export const SETTINGS_GROUPS: { title: string; caption: string; sections: string
 
 /** URL-friendly name of a section, used in /settings/section/:slug. */
 export const sectionSlug = (title: string): string => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+/** Row names where the first item of a screen would be a confusing label for the merged row. Key: "Section|route". */
+const LABELS: Record<string, string> = {
+  'Audience & Visibility|/settings/privacy': 'Privacy & visibility',
+  'Privacy Center|/settings/privacy': 'Privacy & visibility',
+  'Security & Privacy|/settings/privacy': 'Password & account privacy',
+  'Login & Devices|/settings/privacy': 'Login activity',
+  'Login & Devices|/settings/devices': 'Devices & sessions',
+  'Messaging Settings|/message-settings/privacy': 'Read receipts, typing & online status',
+  'Close Friends|/settings/close-friends': 'Close Friends list',
+  'Close Friends|/stories/new': 'Share a story with Close Friends',
+  'Quiet Mode|/settings/notification-prefs': 'Quiet mode & pause notifications',
+  'Hidden Words|/settings/hidden-words': 'Hidden words',
+  'Accessibility|/settings/display': 'Text size, motion & contrast',
+  'Digital Wellbeing|/settings/wellbeing': 'Usage & break reminders',
+  'Digital Wellbeing|/settings/notification-prefs': 'Quiet hours',
+  'Content Safety|/settings/hidden-words': 'Hidden words & filtering',
+  'Reels Settings|/settings/display': 'Autoplay & data usage',
+  'Creator Tools|/settings/insights': 'Creator insights',
+  'AI Content Recommendations|/settings/hidden-posts': 'Hidden posts (not interested)',
+  'Profile Customization|/settings/profile-style': 'Profile style',
+  'Advanced Account Protection|/settings/two-factor': 'Passkeys & two-factor',
+  'Your Information|/settings/your-data': 'Your data',
+}
+
+/** One row per screen: items that open the same screen are merged, and items without a screen move to `soon`. */
+export const SETTINGS_SECTIONS: SettingsSection[] = RAW_SECTIONS.map((sec) => {
+  const seen = new Set<string>()
+  const items: SettingsItem[] = []
+  const soon: string[] = []
+  for (const it of sec.items) {
+    if (!it.to) { soon.push(it.title); continue }
+    if (seen.has(it.to)) continue
+    seen.add(it.to)
+    items.push({ title: LABELS[`${sec.title}|${it.to}`] ?? it.title, to: it.to })
+  }
+  return { ...sec, items, soon }
+})

@@ -56,6 +56,9 @@ export default function SettingsHomePage() {
       for (const it of sec.items) {
         if (it.title.toLowerCase().includes(q)) out.push({ title: it.title, where: sec.title, to: it.to })
       }
+      for (const title of sec.soon ?? []) {
+        if (title.toLowerCase().includes(q)) out.push({ title, where: sec.title })
+      }
     }
     return out.slice(0, 40)
   }, [q])

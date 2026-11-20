@@ -11,7 +11,6 @@ import { PageHeader } from '@/components/ui/PageHeader'
 import { useToast } from '@/components/ui/Toast'
 import { errorMessage } from '@/lib/supabase'
 import { deleteMyAccount } from '@/services/account'
-import { SETTINGS_SECTIONS } from './settingsMenu'
 
 export default function AccountPage() {
   const me = useMe()
@@ -87,16 +86,6 @@ export default function AccountPage() {
           <div className="form-actions">
             <Button variant="primary" onClick={() => navigate('/settings/change-email')}>Change email</Button>
           </div>
-        </GlassPanel>
-
-        <h2 className="section-title">Account Memorialization</h2>
-        <GlassPanel className="settings-list" as="nav" aria-label="Account Memorialization">
-          {(SETTINGS_SECTIONS.find((x) => x.title === 'Account Memorialization')?.soon ?? []).map((title) => (
-            <div key={title} className="list-row" aria-disabled="true" style={{ opacity: 0.6 }}>
-              <span className="grow">{title}</span>
-              <span className="small muted">Coming soon</span>
-            </div>
-          ))}
         </GlassPanel>
 
         <h2 className="section-title">Delete account</h2>

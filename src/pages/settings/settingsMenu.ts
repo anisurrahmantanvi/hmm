@@ -405,12 +405,13 @@ const LABELS: Record<string, string> = {
 export const SETTINGS_SECTIONS: SettingsSection[] = RAW_SECTIONS.map((sec) => {
   const seen = new Set<string>()
   const items: SettingsItem[] = []
-  const soon: string[] = []
+  const soon: string[] = [] // items with no screen yet are kept out of the app until they are built
   for (const it of sec.items) {
     if (!it.to) { soon.push(it.title); continue }
     if (seen.has(it.to)) continue
     seen.add(it.to)
     items.push({ title: LABELS[`${sec.title}|${it.to}`] ?? it.title, to: it.to })
   }
-  return { ...sec, items, soon }
+  void soon
+  return { ...sec, items }
 })

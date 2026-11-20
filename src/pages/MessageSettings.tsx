@@ -33,16 +33,6 @@ export default function MessageSettingsPage() {
                 ),
               )}
             </GlassPanel>
-            {sec.soon?.length ? (
-              <GlassPanel className="settings-list" as="section" aria-label={tx('Coming soon')} style={{ marginTop: 8 }}>
-                {sec.soon.map((title) => (
-                  <div key={title} className="list-row" aria-disabled="true" style={{ opacity: 0.6 }}>
-                    <span className="grow">{tx(title)}</span>
-                    <span className="small muted">{tx('Coming soon')}</span>
-                  </div>
-                ))}
-              </GlassPanel>
-            ) : null}
           </div>
         ))}
       </div>

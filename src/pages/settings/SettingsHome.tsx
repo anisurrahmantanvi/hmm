@@ -56,9 +56,6 @@ export default function SettingsHomePage() {
       for (const it of sec.items) {
         if (it.title.toLowerCase().includes(q)) out.push({ title: it.title, where: sec.title, to: it.to })
       }
-      for (const title of sec.soon ?? []) {
-        if (title.toLowerCase().includes(q)) out.push({ title, where: sec.title })
-      }
     }
     return out.slice(0, 40)
   }, [q])
@@ -107,7 +104,7 @@ export default function SettingsHomePage() {
                 <GlassPanel className="settings-list" as="nav" aria-label={group.title}>
                   {group.sections.map((name) => {
                     const sec = SETTINGS_SECTIONS.find((x) => x.title === name)
-                    if (!sec) return null
+                    if (!sec || (!sec.items.length && !sec.inline)) return null
                     const Icon = SETTINGS_ICONS[sec.title]
                     return <Row key={sec.title} to={`/settings/section/${sectionSlug(sec.title)}`} icon={Icon ? <Icon size={22} aria-hidden /> : undefined} title={tx(sec.title)} />
                   })}

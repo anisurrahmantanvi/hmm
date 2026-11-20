@@ -23,6 +23,7 @@ export default function StoryCreatePage() {
   const [preview, setPreview] = useState<string | null>(null)
   const [text, setText] = useState('')
   const [bg, setBg] = useState(COLORS[0])
+  const [audience, setAudience] = useState<'friends' | 'close'>('friends')
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
 
@@ -46,7 +47,7 @@ export default function StoryCreatePage() {
     let url: string | null = null
     try {
       if (file) url = await uploadImage('post-media', me.id, file)
-      await createStory({ imageUrl: url, body: text, bg })
+      await createStory({ imageUrl: url, body: text, bg, audience })
       toast.show('Story shared for 24 hours')
       nav('/', { replace: true })
     } catch (e) {
@@ -76,6 +77,10 @@ export default function StoryCreatePage() {
             ))}
           </div>
         ) : null}
+        <div className="chip-row" role="group" aria-label="Who can see it">
+          <button type="button" className="chip" aria-pressed={audience === 'friends'} onClick={() => setAudience('friends')}>All friends</button>
+          <button type="button" className="chip" aria-pressed={audience === 'close'} onClick={() => setAudience('close')}>Close Friends</button>
+        </div>
         <div className="row" style={{ gap: 10 }}>
           <label className="btn btn--glass" style={{ cursor: 'pointer' }}>
             <ImagePlus size={18} aria-hidden /> {file ? 'Change photo' : 'Add photo'}
@@ -83,7 +88,7 @@ export default function StoryCreatePage() {
           </label>
           <Button variant="primary" onClick={() => void share()} disabled={busy}>{busy ? 'Sharing…' : 'Share story'}</Button>
         </div>
-        <p className="small muted">Your friends can see it for 24 hours.</p>
+        <p className="small muted">{audience === 'close' ? 'Only your Close Friends can see it for 24 hours.' : 'Your friends can see it for 24 hours.'}</p>
       </div>
     </>
   )

@@ -217,10 +217,10 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Close Friends',
     items: [
-      { title: 'Create Close Friends List' },
-      { title: 'Add or Remove Friends' },
-      { title: 'Share Stories with Close Friends' },
-      { title: 'Manage Close Friends Visibility' },
+      { title: 'Create Close Friends List', to: '/settings/close-friends' },
+      { title: 'Add or Remove Friends', to: '/settings/close-friends' },
+      { title: 'Share Stories with Close Friends', to: '/stories/new' },
+      { title: 'Manage Close Friends Visibility', to: '/settings/close-friends' },
     ],
   },
   {

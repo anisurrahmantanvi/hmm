@@ -20,6 +20,7 @@ const AllInOnePage = lazy(() => import('@/pages/AllInOne'))
 const DiscoverPage = lazy(() => import('@/pages/Discover'))
 const CreatePage = lazy(() => import('@/pages/Create'))
 const CreatorInsightsPage = lazy(() => import('@/pages/settings/CreatorInsights'))
+const CloseFriendsPage = lazy(() => import('@/pages/settings/CloseFriends'))
 const StoryCreatePage = lazy(() => import('@/pages/stories/StoryCreate'))
 const StoryViewerPage = lazy(() => import('@/pages/stories/StoryViewer'))
 const PostDetailPage = lazy(() => import('@/pages/PostDetail'))
@@ -128,6 +129,7 @@ export function App() {
                 <Route path="/discover" element={<DiscoverPage />} />
                 <Route path="/create" element={<CreatePage />} />
                 <Route path="/settings/insights" element={<CreatorInsightsPage />} />
+                <Route path="/settings/close-friends" element={<CloseFriendsPage />} />
                 <Route path="/stories/new" element={<StoryCreatePage />} />
                 <Route path="/stories/:userId" element={<StoryViewerPage />} />
                 <Route path="/p/:postId" element={<PostDetailPage />} />

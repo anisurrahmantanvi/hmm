@@ -76,7 +76,7 @@ export default function StoryViewerPage() {
         </div>
         <div className="row" style={{ marginTop: 8, gap: 8 }}>
           <Avatar src={group.author.avatar_url} name={name} size="sm" />
-          <strong className="grow">{name} <span className="small" style={{ opacity: 0.8, fontWeight: 400 }}>{timeAgo(story.created_at)}</span></strong>
+          <strong className="grow">{name} <span className="small" style={{ opacity: 0.8, fontWeight: 400 }}>{timeAgo(story.created_at)}{story.audience === 'close' ? ' · Close Friends' : ''}</span></strong>
           {isMine ? <button type="button" className="icon-btn" aria-label="Add another story" onClick={() => nav('/stories/new')} style={{ color: '#fff' }}><Plus size={22} /></button> : null}
           {isMine ? <button type="button" className="icon-btn" aria-label="Delete story" onClick={() => void remove()} style={{ color: '#fff' }}><Trash2 size={20} /></button> : null}
           <button type="button" className="icon-btn" aria-label="Close" onClick={() => nav(-1)} style={{ color: '#fff' }}><X size={22} /></button>

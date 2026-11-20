@@ -8,6 +8,7 @@ export interface Story {
   image_url: string | null
   body: string | null
   bg: string
+  audience: 'friends' | 'close'
   created_at: string
   expires_at: string
   viewed: boolean
@@ -26,7 +27,7 @@ function missing(err: { message?: string; code?: string } | null): boolean {
 export async function fetchStoryGroups(meId: string): Promise<StoryGroup[]> {
   const res = await supabase
     .from('stories')
-    .select(`id, user_id, image_url, body, bg, created_at, expires_at, author:profiles!user_id(${PROFILE_LITE}), views:story_views(viewer_id)`)
+    .select(`id, user_id, image_url, body, bg, audience, created_at, expires_at, author:profiles!user_id(${PROFILE_LITE}), views:story_views(viewer_id)`)
     .gt('expires_at', new Date().toISOString())
     .order('created_at', { ascending: true })
     .limit(300)
@@ -38,7 +39,7 @@ export async function fetchStoryGroups(meId: string): Promise<StoryGroup[]> {
     if (!r.author) continue
     const g = map.get(r.user_id) ?? { author: r.author, stories: [], allSeen: true }
     const viewed = r.user_id === meId || r.views.some((v) => v.viewer_id === meId)
-    g.stories.push({ id: r.id, user_id: r.user_id, image_url: r.image_url, body: r.body, bg: r.bg, created_at: r.created_at, expires_at: r.expires_at, viewed })
+    g.stories.push({ id: r.id, user_id: r.user_id, image_url: r.image_url, body: r.body, bg: r.bg, audience: r.audience ?? 'friends', created_at: r.created_at, expires_at: r.expires_at, viewed })
     if (!viewed) g.allSeen = false
     map.set(r.user_id, g)
   }
@@ -49,8 +50,8 @@ export async function fetchStoryGroups(meId: string): Promise<StoryGroup[]> {
   })
 }
 
-export async function createStory(input: { imageUrl?: string | null; body?: string | null; bg?: string }): Promise<void> {
-  const { error } = await supabase.from('stories').insert({ image_url: input.imageUrl ?? null, body: input.body?.trim() || null, bg: input.bg ?? '#0b0b0c' })
+export async function createStory(input: { imageUrl?: string | null; body?: string | null; bg?: string; audience?: 'friends' | 'close' }): Promise<void> {
+  const { error } = await supabase.from('stories').insert({ image_url: input.imageUrl ?? null, body: input.body?.trim() || null, bg: input.bg ?? '#0b0b0c', audience: input.audience ?? 'friends' })
   if (error) throw new Error(missing(error) ? 'Stories will be available after the next database update.' : error.message)
 }
 export async function deleteStory(id: string): Promise<void> {

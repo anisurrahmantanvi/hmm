@@ -89,7 +89,7 @@ jobs:
           path: android/app/build/outputs/apk/debug/app-debug.apk
       - name: Publish the APK on a separate branch
         run: |
-          mkdir /tmp/pub && cp android/app/build/outputs/apk/debug/app-debug.apk /tmp/pub/iConnecto.apk && cd /tmp/pub
+          mkdir /tmp/pub && cp android/app/build/outputs/apk/debug/app-debug.apk /tmp/pub/Hmm.apk && cd /tmp/pub
           git init -q -b built-apk
           git config user.name github-actions && git config user.email actions@github.com
           git add . && git commit -q -m "APK"

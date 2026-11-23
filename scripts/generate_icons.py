@@ -13,8 +13,10 @@ SRC = ROOT / "design" / "logo-source.png"
 OUT = ROOT / "public" / "icons"
 OUT.mkdir(parents=True, exist_ok=True)
 
-logo = Image.open(SRC).convert("RGB")
-BG = logo.getpixel((4, 4))  # the logo's own near-black navy
+full = Image.open(SRC).convert("RGB")
+BG = full.getpixel((4, 4))  # the logo's own near-black navy
+# Crop away the empty glow around the glass tile, so the logo fills the icon instead of floating small in it.
+logo = full.crop((80, 60, 1174, 1154))
 
 
 def square(n: int) -> Image.Image:
@@ -32,12 +34,12 @@ def padded(n: int, fraction: float, transparent: bool = False) -> Image.Image:
 for n in (96, 128, 192, 512):
     square(n).save(OUT / f"icon-{n}.png", optimize=True)
 square(180).save(OUT / "apple-touch-icon.png", optimize=True)
-padded(512, 0.8).convert("RGB").save(OUT / "maskable-512.png", optimize=True)  # Android maskable safe zone
+padded(512, 0.86).convert("RGB").save(OUT / "maskable-512.png", optimize=True)  # Android maskable safe zone
 square(32).save(ROOT / "public" / "favicon-32.png", optimize=True)
 square(64).save(ROOT / "public" / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48), (64, 64)])
 
 assets = ROOT / "assets"
 assets.mkdir(exist_ok=True)
 square(1024).save(assets / "icon-only.png", optimize=True)
-padded(1024, 0.66, transparent=True).save(assets / "icon-foreground.png", optimize=True)
+padded(1024, 0.94).save(assets / "icon-foreground.png", optimize=True)
 print("icons written; adaptive background colour", "#%02x%02x%02x" % BG)

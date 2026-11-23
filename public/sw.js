@@ -1,5 +1,5 @@
 /*
- * iConnecto app-shell service worker.
+ * Hmm app-shell service worker.
  *
  * What it does
  *   - Navigations: network first, falling back to the cached app shell when offline (the SPA then shows its own

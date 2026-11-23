@@ -129,7 +129,7 @@ async function build(kind: string, id: string): Promise<Push | null> {
     const url = n.type === 'security_alert' ? '/settings/devices' : n.type === 'friend_request' ? '/friend-requests' : n.type === 'follow_request' ? '/friend-requests' : n.type === 'follow' && actor ? `/u/${actor.username}` : n.post_id ? `/p/${n.post_id}` : '/notifications'
     return {
       recipients: [n.recipient_id as string],
-      title: 'iConnecto',
+      title: 'Hmm',
       body: n.type === 'security_alert' ? text.security_alert : `${nameOf(actor)} ${text[n.type as string] ?? 'sent you a notification'}`,
       url,
       tag: `note-${n.id}`,

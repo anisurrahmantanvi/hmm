@@ -1,4 +1,4 @@
-/** "All in one": inside the app, and official websites of other organisations. Official links only, no payments through iConnecto. */
+/** "All in one": inside the app, and official websites of other organisations. Official links only, no payments through Hmm. */
 export interface InternalService { to: string; name: string; hint: string; color: [string, string] }
 export interface ExternalService { name: string; hint: string; url: string; host: string; color: [string, string] }
 export interface ExternalGroup { title: string; items: ExternalService[] }
@@ -7,7 +7,7 @@ export const INTERNAL_SERVICES: InternalService[] = [
   { to: '/market', name: 'Buy & Sell', hint: 'Buy, sell & trade', color: ['#22c55e', '#0fa968'] },
   { to: '/pages', name: 'Pages', hint: 'Manage your pages', color: ['#5b5bf0', '#8b5cf6'] },
   { to: '/communities', name: 'Communities', hint: 'Join your community', color: ['#0a84ff', '#3aa0ff'] },
-  { to: '/messages', name: 'iConnecto AI', hint: 'Ask anything, free', color: ['#111111', '#555555'] },
+  { to: '/messages', name: 'Hmm AI', hint: 'Ask anything, free', color: ['#111111', '#555555'] },
 ]
 
 export const EXTERNAL_GROUPS: ExternalGroup[] = [

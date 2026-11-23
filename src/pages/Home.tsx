@@ -58,7 +58,7 @@ export default function HomePage() {
   return (
     <>
       <PageHeader
-        title="iConnecto"
+        title="Hmm"
         actions={
           <div className="row">
             <Link to="/create" className="icon-btn" aria-label="Create a post"><SquarePlus size={24} /></Link>

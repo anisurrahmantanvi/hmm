@@ -3,7 +3,7 @@ export interface ChatTheme { id: string; label: string; from: string; to: string
 export interface ChatWallpaper { id: string; label: string; css: string }
 
 export const CHAT_THEMES: ChatTheme[] = [
-  { id: 'default', label: 'iConnecto', from: '', to: '' },
+  { id: 'default', label: 'Hmm', from: '', to: '' },
   { id: 'ocean', label: 'Ocean', from: '#0ea5e9', to: '#2563eb' },
   { id: 'forest', label: 'Forest', from: '#10b981', to: '#047857' },
   { id: 'sunset', label: 'Sunset', from: '#f97316', to: '#db2777' },

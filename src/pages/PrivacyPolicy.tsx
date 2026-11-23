@@ -15,12 +15,12 @@ export default function PrivacyPolicyPage() {
         <div className="col" style={{ alignItems: 'center', gap: 10, textAlign: 'center' }}>
           <Logo size={56} />
           <h1>Privacy Policy</h1>
-          <p className="muted small">iConnecto · Last updated {UPDATED}</p>
+          <p className="muted small">Hmm · Last updated {UPDATED}</p>
         </div>
 
         <div className="col" style={{ gap: 14 }}>
           <p>
-            iConnecto is a social app for sharing posts, chatting and calling. This page explains what information the app
+            Hmm is a social app for sharing posts, chatting and calling. This page explains what information the app
             uses, why, who else handles it, and how you can control or delete it.
           </p>
 
@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="section-title">Who handles your information</h2>
           <ul>
-            <li><strong>Supabase</strong> stores the database, sign-in, uploaded files and real-time messages for iConnecto.</li>
+            <li><strong>Supabase</strong> stores the database, sign-in, uploaded files and real-time messages for Hmm.</li>
             <li><strong>Google Firebase Cloud Messaging</strong> delivers push notifications. A notification's text, such as the beginning of a message, passes through Google to reach your phone.</li>
             <li><strong>Google (STUN)</strong> helps two phones find each other for a call, which shares network addresses needed to connect.</li>
             <li><strong>GitHub Pages</strong> hosts the app's web pages.</li>
@@ -66,12 +66,12 @@ export default function PrivacyPolicyPage() {
           <p>
             You can delete your account yourself: sign in, then go to Settings → Account Center → Delete account, or use the
             delete page on our website. Your profile is hidden at once, and after a 30-day waiting period (during which you can
-            cancel by signing in) your profile, posts, comments, messages and uploaded files are permanently removed from iConnecto. You can also edit or
+            cancel by signing in) your profile, posts, comments, messages and uploaded files are permanently removed from Hmm. You can also edit or
             delete individual posts and comments at any time.
           </p>
 
           <h2 className="section-title">Children</h2>
-          <p>iConnecto is not meant for children under 13, and we do not knowingly collect their information.</p>
+          <p>Hmm is not meant for children under 13, and we do not knowingly collect their information.</p>
 
           <h2 className="section-title">Changes</h2>
           <p>If this policy changes, the date at the top will change. Significant changes will be announced in the app.</p>
@@ -84,7 +84,7 @@ export default function PrivacyPolicyPage() {
           ) : null}
         </div>
 
-        <p className="small center muted" style={{ textAlign: 'center' }}><Link to="/">Back to iConnecto</Link></p>
+        <p className="small center muted" style={{ textAlign: 'center' }}><Link to="/">Back to Hmm</Link></p>
       </GlassPanel>
     </div>
   )

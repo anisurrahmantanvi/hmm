@@ -61,7 +61,7 @@ export function BadgesProvider({ children }: { children: ReactNode }) {
     const latest = (await fetchNotifications(null).catch(() => null))?.items[0]
     if (!latest || latest.is_read) return
     const who = latest.actor?.display_name || latest.actor?.username || 'Someone'
-    await showSystemNotification('iConnecto', `${who} ${NOTE_TEXT[latest.type] ?? 'sent you a notification'}`, `note-${latest.id}`)
+    await showSystemNotification('Hmm', `${who} ${NOTE_TEXT[latest.type] ?? 'sent you a notification'}`, `note-${latest.id}`)
   }
   const handlers = useRef({ notifyMessage, notifyActivity })
   handlers.current = { notifyMessage, notifyActivity }

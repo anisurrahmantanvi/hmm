@@ -4,7 +4,7 @@ export interface AiMessage { role: 'user' | 'assistant'; text: string }
 
 export type AiResult = { ok: true; reply: string } | { ok: false; reason: 'not_configured' | 'limit' | 'busy' | 'network' | 'error' }
 
-/** Asks iConnecto AI (Edge Function ai-chat). The AI key lives only on the server. */
+/** Asks Hmm AI (Edge Function ai-chat). The AI key lives only on the server. */
 export async function askAi(messages: AiMessage[]): Promise<AiResult> {
   try {
     const { data, error } = await supabase.functions.invoke('ai-chat', { body: { messages } })

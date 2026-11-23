@@ -6,7 +6,7 @@ import { useAsync } from '@/hooks/common'
 import { getPageBySlug } from '@/services/pages'
 import { getPageSettings } from '@/services/pageExtras'
 
-/** Public policy page of a Page: its own contact details and policy, plus the iConnecto Terms and Privacy Policy. */
+/** Public policy page of a Page: its own contact details and policy, plus the Hmm Terms and Privacy Policy. */
 export default function PagePolicyPage() {
   const { slug = '' } = useParams()
   const s = useAsync(async () => {
@@ -23,7 +23,7 @@ export default function PagePolicyPage() {
             <h2 style={{ fontSize: 20 }}>{s.data.page.name}</h2>
             <GlassPanel padded className="col">
               <strong>Contact</strong>
-              {s.data.settings.contact_email ? <a href={`mailto:${s.data.settings.contact_email}`}>{s.data.settings.contact_email}</a> : <span className="small muted">The Page has not added a contact email. You can message the Page on iConnecto.</span>}
+              {s.data.settings.contact_email ? <a href={`mailto:${s.data.settings.contact_email}`}>{s.data.settings.contact_email}</a> : <span className="small muted">The Page has not added a contact email. You can message the Page on Hmm.</span>}
               {s.data.page.website ? <a href={s.data.page.website} target="_blank" rel="noopener noreferrer">{s.data.page.website}</a> : null}
             </GlassPanel>
             <GlassPanel padded className="col">
@@ -32,8 +32,8 @@ export default function PagePolicyPage() {
               {s.data.settings.privacy_policy_url ? <a href={s.data.settings.privacy_policy_url} target="_blank" rel="noopener noreferrer">Privacy policy of this Page</a> : null}
             </GlassPanel>
             <GlassPanel padded className="col">
-              <strong>iConnecto rules for Pages</strong>
-              <span className="small muted">Every Page on iConnecto follows these.</span>
+              <strong>Hmm rules for Pages</strong>
+              <span className="small muted">Every Page on Hmm follows these.</span>
               <Link to="/terms">Terms of Service</Link>
               <Link to="/privacy-policy">Privacy Policy</Link>
             </GlassPanel>

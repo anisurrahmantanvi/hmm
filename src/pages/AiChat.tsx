@@ -5,7 +5,7 @@ import { askAi, type AiMessage } from '@/services/ai'
 
 const KEY = 'iconnecto.aiChat'
 const NOTES: Record<string, string> = {
-  not_configured: 'iConnecto AI এখনো চালু হয়নি। কিছুদিনের মধ্যে আসছে।',
+  not_configured: 'Hmm AI এখনো চালু হয়নি। কিছুদিনের মধ্যে আসছে।',
   limit: 'আজকের জন্য আপনার AI ব্যবহারের সীমা শেষ। কাল আবার চেষ্টা করুন।',
   busy: 'AI এখন ব্যস্ত। একটু পরে আবার চেষ্টা করুন।',
   network: 'ইন্টারনেট সংযোগে সমস্যা। আবার চেষ্টা করুন।',
@@ -19,7 +19,7 @@ function load(): AiMessage[] {
   } catch { return [] }
 }
 
-/** iConnecto AI: a simple chat assistant. History stays on this device only. */
+/** Hmm AI: a simple chat assistant. History stays on this device only. */
 export default function AiChatPage() {
   const [msgs, setMsgs] = useState<AiMessage[]>(load)
   const [text, setText] = useState('')
@@ -49,7 +49,7 @@ export default function AiChatPage() {
   return (
     <>
       <PageHeader
-        title="iConnecto AI"
+        title="Hmm AI"
         back="/messages"
         actions={msgs.length ? <button type="button" className="icon-btn" aria-label="Clear chat" onClick={() => { setMsgs([]); setNote('') }}><Trash2 size={20} /></button> : undefined}
       />
@@ -58,7 +58,7 @@ export default function AiChatPage() {
           {!msgs.length ? (
             <div className="ai__hello">
               <Sparkles size={30} aria-hidden />
-              <strong>আমি iConnecto AI</strong>
+              <strong>আমি Hmm AI</strong>
               <span>যেকোনো প্রশ্ন করুন, লেখায় সাহায্য নিন, বা নতুন কিছু শিখুন। বাংলা, Banglish বা English, যেটায় খুশি।</span>
             </div>
           ) : null}
@@ -75,7 +75,7 @@ export default function AiChatPage() {
             placeholder="কিছু জিজ্ঞেস করুন…"
             rows={1}
             maxLength={2000}
-            aria-label="Message to iConnecto AI"
+            aria-label="Message to Hmm AI"
           />
           <button type="submit" className="icon-btn ai__send" disabled={busy || !text.trim()} aria-label="Send"><Send size={20} /></button>
         </form>

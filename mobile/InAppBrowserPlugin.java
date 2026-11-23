@@ -11,7 +11,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 /**
  * Opens a website in a Chrome Custom Tab: the real browser, shown on top of the app, so sign-in, OTP and payment pages work
- * and iConnecto never sees what the person types there. Only https links are opened.
+ * and Hmm never sees what the person types there. Only https links are opened.
  */
 @CapacitorPlugin(name = "InAppBrowser")
 public class InAppBrowserPlugin extends Plugin {

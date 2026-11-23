@@ -1,6 +1,6 @@
-// iConnecto AI: a chat assistant powered by Google Gemini (free tier).
+// Hmm AI: a chat assistant powered by Google Gemini (free tier).
 //
-// Deployed WITH JWT verification: only signed-in iConnecto users can call it.
+// Deployed WITH JWT verification: only signed-in Hmm users can call it.
 // Secrets (Supabase > Edge Functions > Secrets), never in the app or in git:
 //   GEMINI_API_KEY   created in Google AI Studio (https://aistudio.google.com/apikey)
 //   GEMINI_MODEL     optional, default gemini-2.5-flash
@@ -19,7 +19,7 @@ const CORS = {
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { ...CORS, 'Content-Type': 'application/json' } })
 
-const SYSTEM = `You are "iConnecto AI", the friendly assistant inside the iConnecto social app.
+const SYSTEM = `You are "Hmm AI", the friendly assistant inside the Hmm social app.
 Reply in the same language the user writes (Bangla, Banglish or English). Be short, clear and kind.
 Help with everyday questions, writing, learning and ideas. For medical, legal or money questions give general information and suggest a professional.
 Never help with anything that harms people, sexual content involving minors, or creating weapons or malware. Do not ask for passwords or personal secrets.

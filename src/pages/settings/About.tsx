@@ -6,12 +6,12 @@ import { PageHeader } from '@/components/ui/PageHeader'
 export default function AboutPage() {
   return (
     <>
-      <PageHeader title="About iConnecto" back />
+      <PageHeader title="About Hmm" back />
       <div className="stack">
         <GlassPanel padded>
           <div className="col" style={{ alignItems: 'center', gap: 10, textAlign: 'center' }}>
             <Logo size={64} />
-            <h2>iConnecto</h2>
+            <h2>Hmm</h2>
             <p className="muted">Connect with friends, share moments, chat and call, in one place.</p>
           </div>
         </GlassPanel>

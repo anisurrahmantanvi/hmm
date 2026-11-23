@@ -15,7 +15,7 @@ export function WellbeingWatcher() {
       const p = getWellbeingPrefs()
       if (p.breakMin > 0 && session >= p.breakMin * 60) {
         session = 0
-        toast.show(`You have been using iConnecto for ${p.breakMin} minutes. Time for a short break?`)
+        toast.show(`You have been using Hmm for ${p.breakMin} minutes. Time for a short break?`)
       }
       if (p.dailyLimitMin > 0 && today >= p.dailyLimitMin * 60 && !limitShown) {
         limitShown = true

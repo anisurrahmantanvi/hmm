@@ -1,4 +1,4 @@
-# iConnecto
+# Hmm
 
 A social network with a Liquid Glass–inspired interface: posts, comments, likes, emoji reactions, follows, saved posts, notifications,
 direct messages, communities and 1‑to‑1 voice/video calls. React + TypeScript + Vite on the front end, Supabase (Free plan) for

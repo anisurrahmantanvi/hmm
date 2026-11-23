@@ -21,7 +21,7 @@ export function deviceKey(): string {
 export function deviceLabel(): string {
   const ua = navigator.userAgent
   const os = /Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iPhone/iPad' : /Windows/i.test(ua) ? 'Windows' : /Mac OS/i.test(ua) ? 'Mac' : /Linux/i.test(ua) ? 'Linux' : 'Device'
-  const app = /\bwv\b/.test(ua) ? 'iConnecto app' : /Edg\//.test(ua) ? 'Edge' : /Firefox\//.test(ua) ? 'Firefox' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'Browser'
+  const app = /\bwv\b/.test(ua) ? 'Hmm app' : /Edg\//.test(ua) ? 'Edge' : /Firefox\//.test(ua) ? 'Firefox' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'Browser'
   return `${os} · ${app}`
 }
 
@@ -70,7 +70,7 @@ export async function enrollTotp(): Promise<{ id: string; qr: string; secret: st
   for (const f of (old.data?.all ?? []).filter((x) => x.factor_type === 'totp' && x.status === 'unverified')) {
     await supabase.auth.mfa.unenroll({ factorId: f.id })
   }
-  const { data, error } = await supabase.auth.mfa.enroll({ factorType: 'totp', friendlyName: 'iConnecto ' + new Date().toISOString().slice(0, 10) })
+  const { data, error } = await supabase.auth.mfa.enroll({ factorType: 'totp', friendlyName: 'Hmm ' + new Date().toISOString().slice(0, 10) })
   if (error) throw new Error(error.message)
   return { id: data.id, qr: data.totp.qr_code, secret: data.totp.secret }
 }

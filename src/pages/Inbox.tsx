@@ -66,10 +66,10 @@ export default function InboxPage() {
       ) : null}
 
       {!showRequests ? (
-        <Link to="/ai" className="list-row list-row--link glass ai-row" aria-label="iConnecto AI, ask anything">
+        <Link to="/ai" className="list-row list-row--link glass ai-row" aria-label="Hmm AI, ask anything">
           <span className="ai-row__avatar" aria-hidden><Sparkles size={24} /></span>
           <div className="grow" style={{ minWidth: 0 }}>
-            <div className="row"><strong className="truncate">iConnecto AI</strong><span className="ai-row__tag">AI</span></div>
+            <div className="row"><strong className="truncate">Hmm AI</strong><span className="ai-row__tag">AI</span></div>
             <span className="small muted">Ask me anything. Free.</span>
           </div>
         </Link>

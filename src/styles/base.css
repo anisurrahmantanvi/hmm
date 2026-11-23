@@ -166,7 +166,7 @@ html.minimal .btn--glass { background: var(--field); border-color: transparent; 
 html.minimal .comment__likes { box-shadow: none; border: 1px solid var(--glass-edge); }
 
 /* ======================================================================
-   iConnecto "Ink & Arc" identity: soft grey-white, ink-black text, monochrome.
+   Hmm "Ink & Arc" identity: soft grey-white, ink-black text, monochrome.
    One-thumb navigation (Thumb Arc), full-bleed posts separated by hairlines. No sidebar, no tab bar, no blue/purple glass.
    ====================================================================== */
 html.arc, html.arc.minimal {

@@ -14,7 +14,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error('iConnecto crashed while rendering:', error, info.componentStack)
+    console.error('Hmm crashed while rendering:', error, info.componentStack)
     this.setState({ stack: (info.componentStack || '').split('\n').slice(0, 8).join('\n') })
   }
 

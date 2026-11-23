@@ -11,7 +11,7 @@ import { sendSupportRequest, type SupportKind } from '@/services/support'
 const COPY: Record<SupportKind, { title: string; intro: string; subject: string; message: string }> = {
   problem: { title: 'Report a Problem', intro: 'Something not working or not right? Tell us what happened.', subject: 'What went wrong?', message: 'Describe the problem: what you did, what you expected, and what happened instead.' },
   bug: { title: 'Report a Bug', intro: 'Found a bug? The more detail, the faster we can fix it.', subject: 'Short title of the bug', message: 'Steps to reproduce, which screen, and what you saw. Mention your phone model if it matters.' },
-  feature: { title: 'Request a Feature', intro: 'Tell us what would make iConnecto better for you.', subject: 'Feature name', message: 'Describe the feature and how you would use it.' },
+  feature: { title: 'Request a Feature', intro: 'Tell us what would make Hmm better for you.', subject: 'Feature name', message: 'Describe the feature and how you would use it.' },
   support: { title: 'Contact Support', intro: 'Questions about your account or the app? Write to us here.', subject: 'Subject', message: 'How can we help?' },
 }
 

@@ -43,7 +43,7 @@ export default function WellbeingPage() {
           {choose('Break reminder', 'A gentle reminder after this much continuous use.', BREAKS, p.breakMin, 'breakMin')}
           {choose('Daily limit reminder', 'A reminder when you reach this much time in a day.', LIMITS, p.dailyLimitMin, 'dailyLimitMin')}
         </GlassPanel>
-        <p className="small muted">Time is counted only while iConnecto is open on this device and is saved on this device only. It does not block the app.</p>
+        <p className="small muted">Time is counted only while Hmm is open on this device and is saved on this device only. It does not block the app.</p>
       </div>
     </>
   )

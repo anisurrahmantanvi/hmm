@@ -95,7 +95,7 @@ export function ReelItem({ reel, muted, onToggleMute, patch, onDeleted }: { reel
   const share = async () => {
     const url = appUrl('/reels')
     try {
-      if (navigator.share) await navigator.share({ title: 'iConnecto Reel', text: reel.caption || 'Watch this reel on iConnecto', url })
+      if (navigator.share) await navigator.share({ title: 'Hmm Reel', text: reel.caption || 'Watch this reel on Hmm', url })
       else { await navigator.clipboard.writeText(url); toast.show('Link copied') }
     } catch { /* cancelled */ }
   }

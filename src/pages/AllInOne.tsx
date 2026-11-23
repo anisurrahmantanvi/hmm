@@ -6,13 +6,13 @@ import { EXTERNAL_GROUPS, INTERNAL_SERVICES } from '@/lib/services'
 
 const tile = (c: [string, string]) => ({ background: `linear-gradient(135deg, ${c[0]}, ${c[1]})` })
 
-/** All in one: iConnecto's own services, and quick links to official websites that open in a browser tab on top of the app. */
+/** All in one: Hmm's own services, and quick links to official websites that open in a browser tab on top of the app. */
 export default function AllInOnePage() {
   return (
     <>
       <PageHeader title="All in one" back="/menu" />
       <div className="stack">
-        <h2 className="aio-title">iConnecto</h2>
+        <h2 className="aio-title">Hmm</h2>
         <div className="mgrid">
           {INTERNAL_SERVICES.map((s) => (
             <Link key={s.name} to={s.to} className="mtile">
@@ -39,7 +39,7 @@ export default function AllInOnePage() {
         ))}
 
         <p className="small muted aio-note">
-          These are websites of other organisations, not run by iConnecto. They open in a browser on top of the app. Sign in and pay only on their own page. iConnecto never sees your password, NID or payment details.
+          These are websites of other organisations, not run by Hmm. They open in a browser on top of the app. Sign in and pay only on their own page. Hmm never sees your password, NID or payment details.
         </p>
       </div>
     </>

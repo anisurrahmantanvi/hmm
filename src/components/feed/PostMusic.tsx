@@ -9,7 +9,7 @@ export function PostMusic({ audio }: { audio: PostAudio }) {
         <Music size={18} aria-hidden />
         <span className="grow" style={{ minWidth: 0 }}>
           <strong className="truncate" style={{ display: 'block' }}>{audio.title}</strong>
-          <span className="small muted truncate" style={{ display: 'block' }}>{audio.artist || (audio.source === 'upload' ? 'Original audio' : 'iConnecto music')}</span>
+          <span className="small muted truncate" style={{ display: 'block' }}>{audio.artist || (audio.source === 'upload' ? 'Original audio' : 'Hmm music')}</span>
         </span>
       </div>
       <audio

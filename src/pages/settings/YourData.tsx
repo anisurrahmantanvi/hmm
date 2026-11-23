@@ -40,7 +40,7 @@ export default function YourDataPage() {
     setBusy(true)
     try {
       const file = await build()
-      if (navigator.canShare?.({ files: [file] })) await navigator.share({ files: [file], title: 'My iConnecto data' })
+      if (navigator.canShare?.({ files: [file] })) await navigator.share({ files: [file], title: 'My Hmm data' })
       else toast.error('Sharing files is not supported here. Try Download.')
     } catch (e) { if ((e as Error).name !== 'AbortError') toast.error(errorMessage(e)) } finally { setBusy(false) }
   }

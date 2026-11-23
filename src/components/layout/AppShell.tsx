@@ -113,7 +113,7 @@ export function AppShell() {
 
       {!arc ? (
       <aside className="glass sidebar" aria-label="Main navigation">
-        <div className="brand"><Logo size={34} decorative /> iConnecto</div>
+        <div className="brand"><Logo size={34} decorative /> Hmm</div>
         <NavItem to="/" icon={Home} label={t('nav.home')} end />
         <NavItem to="/discover" icon={Compass} label={t('nav.discover')} />
         <NavItem to="/reels" icon={Clapperboard} label="Reels" />

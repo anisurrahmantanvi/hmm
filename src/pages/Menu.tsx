@@ -133,9 +133,9 @@ export default function MenuPage() {
           </Link>
         ) : null}
 
-        <div className="mpremium" aria-label="iConnecto Premium, coming soon">
+        <div className="mpremium" aria-label="Hmm Premium, coming soon">
           <Crown size={28} aria-hidden />
-          <span className="mpremium__text"><strong>iConnecto Premium</strong><span>Unlock more amazing features</span></span>
+          <span className="mpremium__text"><strong>Hmm Premium</strong><span>Unlock more amazing features</span></span>
           <span className="mpremium__soon">Coming soon</span>
         </div>
 

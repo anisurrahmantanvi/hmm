@@ -96,7 +96,7 @@ export const PostCard = memo(function PostCard({ post, onChange, onDeleted, canM
   const share = async () => {
     try {
       if (navigator.share) {
-        await navigator.share({ title: `${author?.display_name ?? 'Someone'} on iConnecto`, text: post.content.slice(0, 100), url: link })
+        await navigator.share({ title: `${author?.display_name ?? 'Someone'} on Hmm`, text: post.content.slice(0, 100), url: link })
       } else {
         await navigator.clipboard.writeText(link)
         toast.show('Link copied')
@@ -279,7 +279,7 @@ export const PostCard = memo(function PostCard({ post, onChange, onDeleted, canM
       <Dialog open={privacyOpen} title="Who can see this post?" onClose={() => setPrivacyOpen(false)}>
         <div className="privacy-options" role="radiogroup" aria-label="Post privacy">
           {([
-            ['public', <Globe key="g" size={22} />, 'Public', 'Everyone on iConnecto'],
+            ['public', <Globe key="g" size={22} />, 'Public', 'Everyone on Hmm'],
             ['followers', <Users key="u" size={22} />, 'Friends only', 'Only your friends'],
             ['only_me', <Lock key="l" size={22} />, 'Only me', 'Nobody else can see it'],
           ] as const).map(([value, icon, title, body]) => (

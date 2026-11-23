@@ -28,7 +28,7 @@ export function NotificationSetting() {
     setPerm(p)
     if (p === 'granted') {
       toast.show('Notifications are on')
-      if (!native) await showSystemNotification('iConnecto', 'Notifications are working 🎉', 'test')
+      if (!native) await showSystemNotification('Hmm', 'Notifications are working 🎉', 'test')
     } else if (p === 'denied') toast.error('Notifications are blocked. Turn them on in your phone settings for this app.')
     refresh()
   }
@@ -51,7 +51,7 @@ export function NotificationSetting() {
                   ? 'You are all set. You will get alerts for messages, calls, likes, comments and new followers, even when the app is closed.'
                   : 'You will get alerts for messages, likes, comments and new followers while this page stays open in the background.'
               : perm === 'denied'
-                ? 'Notifications are turned off. Open your phone Settings, find iConnecto and allow notifications.'
+                ? 'Notifications are turned off. Open your phone Settings, find Hmm and allow notifications.'
                 : perm === 'unsupported'
                   ? 'This phone or browser cannot show notifications.'
                   : 'Get an alert for messages, calls, likes, comments and new followers.'}
@@ -71,7 +71,7 @@ export function NotificationSetting() {
       ) : trouble ? (
         <div className="form-actions"><Button variant="glass" onClick={() => { void enablePush((url) => navigate(url)).catch(() => undefined); window.setTimeout(refresh, 1500) }}>Try again</Button></div>
       ) : ok && !native ? (
-        <div className="form-actions"><Button variant="glass" onClick={() => void showSystemNotification('iConnecto', 'Test notification 🔔', 'test')}>Send a test</Button></div>
+        <div className="form-actions"><Button variant="glass" onClick={() => void showSystemNotification('Hmm', 'Test notification 🔔', 'test')}>Send a test</Button></div>
       ) : null}
     </GlassPanel>
   )

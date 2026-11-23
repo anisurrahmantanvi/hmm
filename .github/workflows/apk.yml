@@ -33,7 +33,7 @@ jobs:
       - name: Create the Android project
         run: |
           cat > capacitor.config.json <<JSON
-          {"appId":"com.iconnecto.app","appName":"iConnecto","webDir":"dist","server":{"url":"${{ inputs.site_url }}","androidScheme":"https"}}
+          {"appId":"com.iconnecto.app","appName":"Hmm","webDir":"dist","server":{"url":"${{ inputs.site_url }}","androidScheme":"https"}}
           JSON
           npx cap add android
           cp mobile/MainActivity.java mobile/CallService.java mobile/CallKeeperPlugin.java mobile/InAppBrowserPlugin.java mobile/CallRinger.java mobile/AppMessagingService.java android/app/src/main/java/com/iconnecto/app/
@@ -57,8 +57,8 @@ jobs:
           s=s.replace('dependencies {',"dependencies {\n    implementation 'com.google.firebase:firebase-messaging:23.4.1'\n    implementation 'androidx.browser:browser:1.8.0'",1)
           open(p,'w').write(s)
           PY2
-          mkdir -p assets && cp design/logo-source.png assets/icon-only.png && cp design/logo-source.png assets/icon-foreground.png
-          npx capacitor-assets generate --android --iconBackgroundColor '#ffffff' || echo "icon generation failed, default icon kept"
+          test -f assets/icon-only.png && test -f assets/icon-foreground.png   # made by scripts/generate_icons.py and committed
+          npx capacitor-assets generate --android --iconBackgroundColor '#01011f' || echo "icon generation failed, default icon kept"
           grep -rl '@mipmap/ic_launcher_background' android/app/src/main/res | xargs -r sed -i 's#@mipmap/ic_launcher_background#@color/ic_launcher_background#g'
           cp -r mobile/notification-icon/drawable-* android/app/src/main/res/
           mkdir -p android/app/src/main/res/raw && cp mobile/android-res/raw/* android/app/src/main/res/raw/

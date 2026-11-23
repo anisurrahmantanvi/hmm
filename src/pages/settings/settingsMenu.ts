@@ -88,7 +88,7 @@ const RAW_SECTIONS: SettingsSection[] = [
       { title: 'Report a Problem', to: '/settings/support/problem' },
       { title: 'Terms of Service', to: '/terms' },
       { title: 'Privacy Policy', to: '/privacy-policy' },
-      { title: 'About iConnecto', to: '/settings/about' },
+      { title: 'About Hmm', to: '/settings/about' },
     ],
   },
   {
@@ -277,7 +277,7 @@ const RAW_SECTIONS: SettingsSection[] = [
   {
     title: 'Premium Subscription',
     items: [
-      { title: 'iConnecto Premium' },
+      { title: 'Hmm Premium' },
       { title: 'Subscription Plans' },
       { title: 'Premium Benefits' },
       { title: 'Subscription Management' },

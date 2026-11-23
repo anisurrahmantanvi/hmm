@@ -16,7 +16,7 @@ export function Splash({ label = 'Loading' }: { label?: string }) {
     <div className="splash" role="status" aria-live="polite">
       <div className="col center" style={{ alignItems: 'center', gap: 16 }}>
         <Logo size={88} decorative className="logo--pulse" />
-        <strong style={{ letterSpacing: '-0.02em', fontSize: 20 }}>iConnecto</strong>
+        <strong style={{ letterSpacing: '-0.02em', fontSize: 20 }}>Hmm</strong>
         <span className="sr-only">{label}</span>
       </div>
     </div>
@@ -46,7 +46,7 @@ export function ConfigGate({ children }: { children: React.ReactNode }) {
         <GlassPanel className="auth__card" role="alert">
           <ShieldAlert size={32} color="var(--accent)" aria-hidden />
           <h1>Finish setup</h1>
-          <p className="muted">iConnecto needs your Supabase project settings before it can start.</p>
+          <p className="muted">Hmm needs your Supabase project settings before it can start.</p>
           <ol className="small" style={{ paddingLeft: 18, margin: 0 }}>
             <li>Copy <code>.env.example</code> to <code>.env</code></li>
             <li>Fill in: <code>{missingEnv.join(', ')}</code></li>
@@ -111,7 +111,7 @@ export function ProtectedRoute() {
       <div className="auth">
         <GlassPanel className="auth__card" role="alert">
           <h1>Your account is deactivated</h1>
-          <p className="muted">Reactivate to show your profile again and use iConnecto.</p>
+          <p className="muted">Reactivate to show your profile again and use Hmm.</p>
           <Button variant="primary" onClick={() => void reactivateAccount().then(() => setOff(false)).catch(() => undefined)}>Reactivate</Button>
           <Button variant="ghost" onClick={() => void signOut()}>Sign out</Button>
         </GlassPanel>

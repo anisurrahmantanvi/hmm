@@ -261,7 +261,7 @@ export default function CreatePage() {
             <span>I made this audio or I have permission to share it. Copyrighted songs may be removed.</span>
           </label>
           <Button variant="primary" disabled={!rights} onClick={() => audioPicker.current?.click()}>Choose audio file (max 8 MB)</Button>
-          <strong style={{ marginTop: 8 }}>iConnecto music</strong>
+          <strong style={{ marginTop: 8 }}>Hmm music</strong>
           {tracks === null ? <p className="small muted">Loading…</p> : null}
           {tracks && !tracks.length ? <p className="small muted">No library tracks yet. We only add music we have the right to share.</p> : null}
           {tracks?.map((t) => (

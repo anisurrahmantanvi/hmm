@@ -26,7 +26,7 @@ jobs:
       - run: cd dist && zip -qr ../iconnecto-dist.zip .
       - uses: actions/upload-artifact@v4
         with:
-          name: iconnecto-dist
+          name: hmm-dist
           path: iconnecto-dist.zip
       - name: Publish the zip on a separate branch
         run: |

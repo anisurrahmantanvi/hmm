@@ -5,7 +5,7 @@ import { Logo } from '@/components/ui/Logo'
 /** Where people can reach the owner about privacy. Fill this in before publishing to an app store; the line is hidden while it is empty. */
 const CONTACT_EMAIL = ''
 
-const UPDATED = '1 November 2026'
+const UPDATED = '23 November 2026'
 
 /** Public page (no sign-in needed) so an app store and users can read it. */
 export default function PrivacyPolicyPage() {
@@ -32,6 +32,7 @@ export default function PrivacyPolicyPage() {
             <li><strong>Connections and safety:</strong> who you follow, who follows you, accounts you block, and reports you file.</li>
             <li><strong>Activity status:</strong> when you were last active, so friends can see "Online". You can turn this off in Settings → Privacy and security.</li>
             <li><strong>Calls:</strong> when you call someone, the app stores the call's status and technical set-up messages so the call can connect. Voice and video go directly between the two phones where possible. We do not record calls.</li>
+            <li><strong>Sign-in records:</strong> when you sign in or open the app, we record your IP address and your device or browser type, for security and to stop abuse. You can see your own records in Settings → Login activity. We keep them for 90 days and then delete them. Only a Hmm administrator investigating abuse can look at another person's records, and each look is logged. We do not sell them or use them for advertising, and we do not work out your location from them.</li>
             <li><strong>Notifications:</strong> a push token that identifies your phone so we can send alerts for messages, calls, likes, comments and followers.</li>
           </ul>
 
@@ -39,7 +40,7 @@ export default function PrivacyPolicyPage() {
           <ul>
             <li>We do not show ads and we do not sell your information.</li>
             <li>We do not use third-party analytics or advertising trackers in the app.</li>
-            <li>We do not read your contacts or location.</li>
+            <li>We do not read your contacts or your phone's location.</li>
           </ul>
 
           <h2 className="section-title">Permissions</h2>

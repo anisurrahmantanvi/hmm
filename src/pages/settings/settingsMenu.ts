@@ -106,6 +106,7 @@ const RAW_SECTIONS: SettingsSection[] = [
   {
     title: 'Login & Devices',
     items: [
+      { title: 'Login activity', to: '/settings/login-activity' },
       { title: 'Logged-in Devices', to: '/settings/privacy' },
       { title: 'Device History', to: '/settings/devices' },
       { title: 'Logout From All Devices', to: '/settings/devices' },
@@ -382,7 +383,7 @@ const LABELS: Record<string, string> = {
   'Audience & Visibility|/settings/privacy': 'Privacy & visibility',
   'Privacy Center|/settings/privacy': 'Privacy & visibility',
   'Security & Privacy|/settings/privacy': 'Password & account privacy',
-  'Login & Devices|/settings/privacy': 'Login activity',
+  'Login & Devices|/settings/privacy': 'Privacy & visibility',
   'Login & Devices|/settings/devices': 'Devices & sessions',
   'Messaging Settings|/message-settings/privacy': 'Read receipts, typing & online status',
   'Close Friends|/settings/close-friends': 'Close Friends list',

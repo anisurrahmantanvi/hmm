@@ -9,7 +9,7 @@ import { useToast } from '@/components/ui/Toast'
 import { timeAgo } from '@/lib/format'
 import { errorMessage } from '@/lib/supabase'
 import { adsAvailable, setTestAds, testAdsOn } from '@/lib/ads'
-import { adminDeleteContent, adminReports, adminSetReport, adminStats, adminUsers, isAppAdmin, type AdminReport } from '@/services/admin'
+import { adminDeleteContent, adminReports, adminSetReport, adminStats, adminUserLogins, adminUsers, type AdminLogin, isAppAdmin, type AdminReport } from '@/services/admin'
 
 type Tab = 'overview' | 'reports' | 'users'
 
@@ -94,6 +94,21 @@ function Reports() {
   )
 }
 
+function UserLogins({ id }: { id: string }) {
+  const [rows, setRows] = useState<AdminLogin[] | null>(null)
+  const [err, setErr] = useState<string | null>(null)
+  return (
+    <div style={{ padding: '0 14px 10px' }}>
+      {rows === null ? (
+        <button type="button" className="btn btn--glass btn--sm" onClick={() => void adminUserLogins(id).then(setRows, (e: Error) => setErr(e.message))}>Sign-in records</button>
+      ) : rows.length === 0 ? <p className="small muted">No records.</p> : rows.slice(0, 10).map((r, i) => (
+        <div key={i} className="small muted">{r.ip ?? 'unknown'} · {timeAgo(r.created_at)} · {(r.user_agent ?? '').slice(0, 50)}</div>
+      ))}
+      {err ? <p className="small" style={{ color: 'var(--danger, #e5484d)' }}>{err}</p> : null}
+    </div>
+  )
+}
+
 function Users() {
   const [q, setQ] = useState('')
   const dq = useDebounce(q)
@@ -105,9 +120,12 @@ function Users() {
       {u.error && !u.data ? <ErrorState message={u.error} onRetry={u.reload} /> : null}
       <GlassPanel>
         {(u.data ?? []).map((x) => (
-          <Link key={x.id} to={`/u/${x.username}`} className="list-row">
+          <div key={x.id}>
+          <Link to={`/u/${x.username}`} className="list-row">
             <span className="grow"><strong>{x.display_name || x.username}</strong><span className="small muted" style={{ display: 'block' }}>@{x.username} · joined {timeAgo(x.created_at)} · {x.posts_count} posts · {x.followers_count} followers</span></span>
           </Link>
+          <UserLogins id={x.id} />
+          </div>
         ))}
       </GlassPanel>
     </>

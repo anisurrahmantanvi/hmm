@@ -23,3 +23,7 @@ export const adminReports = (status: 'open' | 'resolved' | 'dismissed' | 'all') 
 export const adminSetReport = (id: string, status: 'open' | 'resolved' | 'dismissed') => call<void>('admin_set_report', { p_id: id, p_status: status })
 export const adminUsers = (q: string) => call<AdminUser[]>('admin_users', { p_q: q })
 export const adminDeleteContent = (type: 'post' | 'comment', id: string, note?: string) => call<void>('admin_delete_content', { p_type: type, p_id: id, p_note: note ?? null })
+
+export interface AdminLogin { ip: string | null; user_agent: string | null; created_at: string }
+/** Sign-in records of one person (last 50). Every call is written to the admin log. */
+export const adminUserLogins = (userId: string) => call<AdminLogin[]>('admin_user_logins', { p_user: userId })

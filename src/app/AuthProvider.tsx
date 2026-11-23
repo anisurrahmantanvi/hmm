@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { appUrl } from '@/lib/base'
 import type { Session, User } from '@supabase/supabase-js'
 import { supabase, errorMessage } from '@/lib/supabase'
+import { recordLogin } from '@/services/loginActivity'
 import { loadOrCreateMyProfile } from '@/services/profiles'
 import { disablePushForThisPhone } from '@/lib/push'
 import type { Profile } from '@/types/db'
@@ -103,7 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const cached = readCachedProfile(userId)
     if (cached) setProfile((cur) => cur ?? cached)
     loadOrCreateMyProfile(userId)
-      .then((p) => { if (cancelled) return; setProfile(p); writeCachedProfile(p) })
+      .then((p) => { if (cancelled) return; setProfile(p); writeCachedProfile(p); recordLogin(userId) })
       .catch((e) => !cancelled && setProfileError(errorMessage(e, 'Could not load your profile.')))
     return () => {
       cancelled = true

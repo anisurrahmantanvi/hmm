@@ -26,5 +26,7 @@ jobs:
         run: supabase functions deploy send-push --no-verify-jwt --yes --project-ref "${{ inputs.project_ref }}"
       - name: Deploy purge-accounts (daily clean-up of accounts past their 30-day deletion wait)
         run: supabase functions deploy purge-accounts --no-verify-jwt --yes --project-ref "${{ inputs.project_ref }}"
+      - name: Deploy log-login (records the IP of sign-ins, signed-in users only)
+        run: supabase functions deploy log-login --yes --project-ref "${{ inputs.project_ref }}"
       - name: Deploy ai-chat (Hmm AI; signed-in users only, needs secret GEMINI_API_KEY)
         run: supabase functions deploy ai-chat --yes --project-ref "${{ inputs.project_ref }}"

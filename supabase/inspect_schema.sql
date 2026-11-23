@@ -1,4 +1,4 @@
--- iConnecto: READ-ONLY schema inspection. Run this in the Supabase SQL editor BEFORE the migrations.
+-- Hmm: READ-ONLY schema inspection. Run this in the Supabase SQL editor BEFORE the migrations.
 -- It changes nothing. Compare the output with supabase/README.md ("Expected columns").
 
 -- 1) Tables and columns that already exist

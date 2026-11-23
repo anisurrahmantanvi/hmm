@@ -1,4 +1,4 @@
--- iConnecto: database security & behaviour smoke tests.
+-- Hmm: database security & behaviour smoke tests.
 --
 -- WHAT IT DOES
 --   Creates five throw-away users, then impersonates them (role "authenticated" + a fake JWT subject) to check that

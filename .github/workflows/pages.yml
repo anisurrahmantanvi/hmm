@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
-      - name: Build for the /iconnecto/ sub-path
+      - name: Build for the /hmm/ sub-path
         run: |
           npm run build
-          cp dist/index.html dist/404.html   # deep links (e.g. /iconnecto/login) fall back to the app
+          cp dist/index.html dist/404.html   # deep links (e.g. /hmm/login) fall back to the app
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL || 'https://hcfehacsfirzwjqqcabb.supabase.co' }}

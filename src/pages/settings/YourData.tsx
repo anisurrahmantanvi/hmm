@@ -16,7 +16,7 @@ export default function YourDataPage() {
 
   const build = async () => {
     const data = await collectMyData(me.id)
-    return new File([JSON.stringify(data, null, 2)], `iconnecto-${me.username}-data.json`, { type: 'application/json' })
+    return new File([JSON.stringify(data, null, 2)], `hmm-${me.username}-data.json`, { type: 'application/json' })
   }
 
   const download = async () => {

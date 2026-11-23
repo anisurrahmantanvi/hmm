@@ -12,7 +12,7 @@
  *     data must never be stored by a worker.
  *   - It does not implement push notifications.
  */
-// Works at the site root and under a sub-path such as /iconnecto/ (GitHub Pages).
+// Works at the site root and under a sub-path such as /hmm/ (GitHub Pages).
 const BASE = new URL(self.registration.scope).pathname
 const SHELL = 'ic-shell-v1'
 const ASSETS = 'ic-assets-v1'

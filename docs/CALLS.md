@@ -1,6 +1,6 @@
 # Voice and video calls: how they work and what you must configure
 
-iConnecto uses **WebRTC** for the audio/video itself (peer to peer) and **Supabase** only for signalling and call records:
+Hmm uses **WebRTC** for the audio/video itself (peer to peer) and **Supabase** only for signalling and call records:
 
 * `call_sessions` — one row per call (caller, callee, type, status, timestamps). Status changes are validated by a database trigger
   (only the callee can accept/decline, only the caller can cancel/mark missed, finished calls cannot change).

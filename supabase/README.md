@@ -1,4 +1,4 @@
-# iConnecto database (Supabase)
+# Hmm database (Supabase)
 
 Everything the app needs on the server lives in `migrations/`. The files are **idempotent and non-destructive**: they create
 missing objects and add missing columns, and never drop tables or delete rows.

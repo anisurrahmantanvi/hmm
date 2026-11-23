@@ -1,4 +1,4 @@
-/** The path the app is served from: `/` normally, `/iconnecto/` on a GitHub Pages project site. */
+/** The path the app is served from: `/` normally, `/hmm/` on a GitHub Pages project site. */
 export const BASE: string = (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL ?? '/'
 
 /** Router basename: no trailing slash, and undefined at the root. */
